@@ -1,0 +1,11 @@
+# Folders
+node_modules/
+
+# Files
+Makefile
+.gitlab-ci.yml
+
+# Extensions
+*.yaml
+*.conf
+*.snap
