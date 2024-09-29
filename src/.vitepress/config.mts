@@ -1,3 +1,4 @@
+import path from 'node:path'
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
@@ -60,6 +61,13 @@ export default defineConfig({
           { text: 'Целитель', link: '/pages/guides/classes/prophet' },
           { text: 'Демон', link: '/pages/guides/classes/darklord' },
         ],
+      },
+    },
+  },
+  vite: {
+    resolve: {
+      alias: {
+        '@': path.resolve(import.meta.dirname, '../'),
       },
     },
   },
