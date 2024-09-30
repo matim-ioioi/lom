@@ -1,19 +1,17 @@
 <script setup>
-import BaseAtkCalculator from '../../../components/calculators/base-atk/BaseAtkCalculator.vue'
+import SkillAtkCalculator from '../../../components/calculators/skill-atk/SkillAtkCalculator.vue'
 </script>
 
-# Калькулятор для расчёта урона с руки
+# Калькулятор для расчёта урона с навыков
 
 ::: tip Описание
-В этом калькуляторе можно рассчитать ваш урон с руки
+В этом калькуляторе можно рассчитать ваш урон с навыков
 
 Возможные расчёты:
-- урон с обычной атаки
-- урон с крита
-- урон с комбоатаки
-- урон с контратаки
-- урон с крита+комбоатаки
-- урон с крита+контратаки
+- урон с навыка
+- урон с крита навыка
+- урон с активного навыка
+- урон с крита активного навыка
 :::
 
 ::: danger Внимание!
@@ -22,4 +20,4 @@ import BaseAtkCalculator from '../../../components/calculators/base-atk/BaseAtkC
 Вводите данные полностью (например, если ваша конечная атака `74539.6К`, то вводите `74539600`. Если `746.5М`, вводите `746500000`)
 :::
 
-<BaseAtkCalculator />
+<SkillAtkCalculator />

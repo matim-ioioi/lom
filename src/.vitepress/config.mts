@@ -13,7 +13,7 @@ export default defineConfig({
         items: [
           { text: 'Расчёт урона с руки', link: '/pages/calculators/base-atk' },
           { text: 'Расчёт урона с навыков', link: '/pages/calculators/skill-atk' },
-          { text: 'Расчёт урона питомцев', link: '/pages/calculators/pal-atk' },
+          { text: 'Расчёт урона партнёров', link: '/pages/calculators/pal-atk' },
           {
             text: 'Расчёт бонусов атрибутов летающих питомцев',
             link: '/pages/calculators/flying-pets/attributes-bonuses',
@@ -41,7 +41,7 @@ export default defineConfig({
         items: [
           { text: 'Расчёт урона с руки', link: '/pages/calculators/base-atk' },
           { text: 'Расчёт урона с навыков', link: '/pages/calculators/skill-atk' },
-          { text: 'Расчёт урона питомцев', link: '/pages/calculators/pal-atk' },
+          { text: 'Расчёт урона партнёров', link: '/pages/calculators/pal-atk' },
           {
             text: 'Расчёт бонусов атрибутов летающих питомцев',
             link: '/pages/calculators/flying-pets/attributes-bonuses',

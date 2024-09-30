@@ -9,11 +9,11 @@
         <el-input v-model="baseAttackCoefficient" type="number" placeholder="Коэффициент обычной атаки">
           <template #prepend>Коэффициент обычной атаки</template>
         </el-input>
-        <el-input v-model="criticalCoefficient" type="number" placeholder="Крит урон">
-          <template #prepend>Крит урон</template>
+        <el-input v-model="criticalCoefficient" type="number" placeholder="Коэффициент крита">
+          <template #prepend>Коэффициент крита</template>
         </el-input>
-        <el-input v-model="comboCoefficient" type="number" placeholder="Коэффициент комбо">
-          <template #prepend>Коэффициент комбо</template>
+        <el-input v-model="comboCoefficient" type="number" placeholder="Коэффициент комбоатаки">
+          <template #prepend>Коэффициент комбоатаки</template>
         </el-input>
         <el-input v-model="counterattackCoefficient" type="number" placeholder="Коэффициент контратаки">
           <template #prepend>Коэффициент контратаки</template>
@@ -23,23 +23,23 @@
     <h2>Результаты</h2>
     <el-row>
       <el-col>
-        <el-input v-model="result.attackDamage" type="text" placeholder="Обычная атака" disabled>
-          <template #prepend>Обычная атака</template>
+        <el-input v-model="result.attackDamage" type="text" placeholder="Урон с обычной атаки" disabled>
+          <template #prepend>Урон с обычной атаки</template>
         </el-input>
-        <el-input v-model="result.criticalDamage" type="text" placeholder="Крит" disabled>
-          <template #prepend>Крит</template>
+        <el-input v-model="result.criticalDamage" type="text" placeholder="Урон с крита" disabled>
+          <template #prepend>Урон с крита</template>
         </el-input>
-        <el-input v-model="result.comboDamage" type="text" placeholder="Комбо" disabled>
-          <template #prepend>Комбо</template>
+        <el-input v-model="result.comboDamage" type="text" placeholder="Урон с комбоатаки" disabled>
+          <template #prepend>Урон с комбоатаки</template>
         </el-input>
-        <el-input v-model="result.counterattackDamage" type="text" placeholder="Контра" disabled>
-          <template #prepend>Контра</template>
+        <el-input v-model="result.counterattackDamage" type="text" placeholder="Урон с контратаки" disabled>
+          <template #prepend>Урон с контратаки</template>
         </el-input>
-        <el-input v-model="result.criticalComboDamage" type="text" placeholder="Крит+комбо" disabled>
-          <template #prepend>Крит+комбо</template>
+        <el-input v-model="result.criticalComboDamage" type="text" placeholder="Урон с крита+комбоатаки" disabled>
+          <template #prepend>Урон с крита+комбоатаки</template>
         </el-input>
-        <el-input v-model="result.criticalCounterattackDamage" type="text" placeholder="Крит+контра" disabled>
-          <template #prepend>Крит+контра</template>
+        <el-input v-model="result.criticalCounterattackDamage" type="text" placeholder="Урон с крита+контратаки" disabled>
+          <template #prepend>Урон с крита+контратаки</template>
         </el-input>
       </el-col>
     </el-row>
