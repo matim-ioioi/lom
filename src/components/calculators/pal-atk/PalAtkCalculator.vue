@@ -76,7 +76,7 @@
       <el-col>
         <el-collapse v-model="resultsCollapse">
           <el-collapse-item title="Общие результаты" name="result0">
-            <el-input v-model="generalResults.DPS" type="text" placeholder="Средний урон в секунду" disabled>
+            <el-input v-model="generalResults.attackDPS" type="text" placeholder="Средний урон в секунду" disabled>
               <template #prepend>Средний урон в секунду</template>
               <template #append>
                 <el-tooltip placement="top">
@@ -115,7 +115,7 @@
             >
               <template #prepend>Урон с крита+комбоатаки партнёра</template>
             </el-input>
-            <el-input v-model="result.DPS" type="text" placeholder="Средний урон в секунду" disabled>
+            <el-input v-model="result.attackDPS" type="text" placeholder="Средний урон в секунду" disabled>
               <template #prepend>Средний урон в секунду</template>
               <template #append>
                 <el-tooltip placement="top">
@@ -159,12 +159,12 @@ const statsCollapse = ['pal0']
 const resultsCollapse = ['result0']
 
 const generalStats = reactive<GeneralProperties>({
-  baseAttack: 0,
-  palAttackMultiplier: 0,
-  palCritMultiplier: 0,
-  palComboMultiplier: 0,
-  palCritRate: 0,
-  palComboRate: 0,
+  baseAttack: 75675656,
+  palAttackMultiplier: 100,
+  palCritMultiplier: 100,
+  palComboMultiplier: 200,
+  palCritRate: 100,
+  palComboRate: 100,
 })
 
 const palStats = reactive<PalProperties[]>([
@@ -202,30 +202,30 @@ const results = computed(() => {
 
     const criticalComboDamage = (criticalDamage * generalStats.palComboMultiplier) / 100
 
-    const DPS = calculateDPS(
-      attackDamage,
-      generalStats.palCritMultiplier,
-      generalStats.palComboMultiplier,
-      generalStats.palCritRate,
-      generalStats.palComboRate,
-      pal.palAttackSpeed
-    )
+    const attackDPS = calculateDPS({
+      damage: attackDamage,
+      critRate: generalStats.palCritRate,
+      critMultiplier: generalStats.palCritMultiplier,
+      comboRate: generalStats.palComboRate,
+      comboMultiplier: generalStats.palComboMultiplier,
+      attackSpeed: pal.palAttackSpeed,
+    })
 
     return {
       attackDamage: formatNumber(attackDamage),
       criticalDamage: formatNumber(criticalDamage),
       comboDamage: formatNumber(comboDamage),
       criticalComboDamage: formatNumber(criticalComboDamage),
-      DPS: formatNumber(DPS),
+      attackDPS: formatNumber(attackDPS),
     }
   })
 })
 
 const generalResults = computed(() => {
-  const DPS = results.value.reduce((a, b) => a + deformatNumber(b.DPS), 0)
+  const attackDPS = results.value.reduce((a, b) => a + deformatNumber(b.attackDPS), 0)
 
   return {
-    DPS,
+    attackDPS,
   }
 })
 </script>
