@@ -5,44 +5,24 @@
       <el-col>
         <el-collapse v-model="statsCollapse">
           <el-collapse-item title="Общие статы" name="pal0">
-            <el-input v-model="generalStats.baseAttack" type="number" placeholder="Конечная атака, ед.">
-              <template #prepend>Конечная атака, ед.</template>
-            </el-input>
-            <el-input
+            <v-stats-input v-model="generalStats.baseAttack" placeholder="Конечная атака, ед." />
+            <v-stats-input
               v-model="generalStats.palAttackMultiplier"
-              type="number"
               placeholder="Мультипликатор урона партнёра (общий), %"
-            >
-              <template #prepend>Мультипликатор урона партнёра (общий), %</template>
-            </el-input>
-            <el-input
+            />
+            <v-stats-input
               v-model="generalStats.palCritMultiplier"
-              type="number"
               placeholder="Мультипликатор крита партнёра (конкретного), %"
-            >
-              <template #prepend>Мультипликатор крита партнёра (конкретного), %</template>
-            </el-input>
-            <el-input
+            />
+            <v-stats-input
               v-model="generalStats.palComboMultiplier"
-              type="number"
               placeholder="Мультипликатор комбоатаки партнёра (конкретного), %"
-            >
-              <template #prepend>Мультипликатор комбоатаки партнёра (конкретного), %</template>
-            </el-input>
-            <el-input
-              v-model="generalStats.palCritRate"
-              type="number"
-              placeholder="Шанс крита партнёра (конкретного), %"
-            >
-              <template #prepend>Шанс крита партнёра (конкретного), %</template>
-            </el-input>
-            <el-input
+            />
+            <v-stats-input v-model="generalStats.palCritRate" placeholder="Шанс крита партнёра (конкретного), %" />
+            <v-stats-input
               v-model="generalStats.palComboRate"
-              type="number"
               placeholder="Шанс комбоатаки партнёра (конкретного), %"
-            >
-              <template #prepend>Шанс комбоатаки партнёра (конкретного), %</template>
-            </el-input>
+            />
           </el-collapse-item>
           <el-collapse-item
             v-for="(stat, index) in palStats"
@@ -52,21 +32,14 @@
             }`"
             :name="`pal${index + 1}`"
           >
-            <el-input
+            <v-stats-input
               v-model="stat.palAttackCoefficient"
-              type="number"
               placeholder="Коэффициент урона партнёра (конкретного), ед."
-            >
-              <template #prepend>Коэффициент урона партнёра (конкретного), ед.</template>
-            </el-input>
-
-            <el-input
+            />
+            <v-stats-input
               v-model="stat.palAttackSpeed"
-              type="number"
               placeholder="Коэффициент скорости атаки партнёра (конкретного), ед."
-            >
-              <template #prepend>Коэффициент скорости атаки партнёра (конкретного), ед.</template>
-            </el-input>
+            />
           </el-collapse-item>
         </el-collapse>
       </el-col>
@@ -76,19 +49,14 @@
       <el-col>
         <el-collapse v-model="resultsCollapse">
           <el-collapse-item title="Общие результаты" name="result0">
-            <el-input v-model="generalResults.attackDPS" type="text" placeholder="Средний урон в секунду" disabled>
-              <template #prepend>Средний урон в секунду</template>
-              <template #append>
-                <el-tooltip placement="top">
-                  <template #content>
-                    Это средний урон в секунду всех ваших партнёров вместе<br />
+            <v-stats-input
+              v-model="generalResults.attackDPS"
+              placeholder="Средний урон в секунду"
+              disabled
+              hint="Это средний урон в секунду всех ваших партнёров вместе<br />
                     Средний урон в секунду рассчитывается с учётом всех мультипликаторов, которые на него влияют<br />
-                    (урон атк, крит урон, комбо урон, криткомбо урон, крит шанс, комбо шанс, криткомбо шанс, ск. атаки)
-                  </template>
-                  <el-icon><question-filled /></el-icon>
-                </el-tooltip>
-              </template>
-            </el-input>
+                    (урон атк, крит урон, комбо урон, криткомбо урон, крит шанс, комбо шанс, криткомбо шанс, ск. атаки)"
+            />
           </el-collapse-item>
           <el-collapse-item
             v-for="(result, index) in results"
@@ -98,35 +66,21 @@
             }`"
             :name="`result${index + 1}`"
           >
-            <el-input v-model="result.attackDamage" type="text" placeholder="Урон с обычной атаки партнёра" disabled>
-              <template #prepend>Урон с обычной атаки партнёра</template>
-            </el-input>
-            <el-input v-model="result.criticalDamage" type="text" placeholder="Урон с крита партнёра" disabled>
-              <template #prepend>Урон с крита партнёра</template>
-            </el-input>
-            <el-input v-model="result.comboDamage" type="text" placeholder="Урон с комбоатаки партнёра" disabled>
-              <template #prepend>Урон с комбоатаки партнёра</template>
-            </el-input>
-            <el-input
+            <v-stats-input v-model="result.attackDamage" placeholder="Урон с обычной атаки партнёра" disabled />
+            <v-stats-input v-model="result.criticalDamage" placeholder="Урон с крита партнёра" disabled />
+            <v-stats-input v-model="result.comboDamage" placeholder="Урон с комбоатаки партнёра" disabled />
+            <v-stats-input
               v-model="result.criticalComboDamage"
-              type="text"
               placeholder="Урон с крита+комбоатаки партнёра"
               disabled
-            >
-              <template #prepend>Урон с крита+комбоатаки партнёра</template>
-            </el-input>
-            <el-input v-model="result.attackDPS" type="text" placeholder="Средний урон в секунду" disabled>
-              <template #prepend>Средний урон в секунду</template>
-              <template #append>
-                <el-tooltip placement="top">
-                  <template #content>
-                    Средний урон в секунду рассчитывается с учётом всех мультипликаторов, которые на него влияют<br />
-                    (урон атк, крит урон, комбо урон, криткомбо урон, крит шанс, комбо шанс, криткомбо шанс, ск. атаки)
-                  </template>
-                  <el-icon><question-filled /></el-icon>
-                </el-tooltip>
-              </template>
-            </el-input>
+            />
+            <v-stats-input
+              v-model="result.attackDPS"
+              placeholder="Средний урон в секунду"
+              disabled
+              hint="Средний урон в секунду рассчитывается с учётом всех мультипликаторов, которые на него влияют<br />
+                    (урон атк, крит урон, комбо урон, криткомбо урон, крит шанс, комбо шанс, криткомбо шанс, ск. атаки)"
+            />
           </el-collapse-item>
         </el-collapse>
       </el-col>
@@ -135,8 +89,8 @@
 </template>
 
 <script setup lang="ts">
-import { QuestionFilled } from '@element-plus/icons-vue'
-import { computed, reactive } from 'vue'
+import { computed, reactive, ref } from 'vue'
+import VStatsInput from '@/components/common/VStatsInput.vue'
 import { calculateDPS } from '@/utils/calculateDPS'
 import { deformatNumber } from '@/utils/deformatNumber'
 import { formatNumber } from '@/utils/formatNumber'
@@ -155,8 +109,8 @@ type PalProperties = {
   palAttackSpeed: number
 }
 
-const statsCollapse = ['pal0']
-const resultsCollapse = ['result0']
+const statsCollapse = ref(['pal0'])
+const resultsCollapse = ref(['result0'])
 
 const generalStats = reactive<GeneralProperties>({
   baseAttack: 75675656,
@@ -229,7 +183,3 @@ const generalResults = computed(() => {
   }
 })
 </script>
-
-<style scoped lang="scss">
-//
-</style>
