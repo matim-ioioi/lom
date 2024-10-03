@@ -81,8 +81,8 @@ const result = computed(() => {
     comboRate: comboRate.value,
     comboMultiplier: comboMultiplier.value,
     attackSpeed: attackSpeed.value,
-    normalAtkCount: 2,
-    comboAtkCount: 2,
+    additionalNormalAttack: 2,
+    additionalComboAttack: 2,
   })
   const attackDPSArrowgodAwaked = calculateDPS({
     damage: attackDamage,
@@ -91,8 +91,8 @@ const result = computed(() => {
     comboRate: comboRate.value,
     comboMultiplier: comboMultiplier.value,
     attackSpeed: attackSpeed.value,
-    normalAtkCount: 2,
-    comboAtkCount: 3,
+    additionalNormalAttack: 2,
+    additionalComboAttack: 3,
   })
 
   return {

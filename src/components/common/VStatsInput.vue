@@ -27,5 +27,5 @@ const props = defineProps<{
   disabled?: boolean
 }>()
 
-const model = defineModel<string>({ required: true })
+const model = defineModel<string | number>({ required: true })
 </script>

@@ -1,64 +1,64 @@
-type Stats = {
+interface CharacterAttributes {
   damage: number
-  critRate: number // вероятность критической атаки (в диапазоне от 0 до 1)
   critMultiplier: number
-  comboRate: number // вероятность комбоатаки (в диапазоне от 0 до 1)
   comboMultiplier: number
-  attackSpeed: number // количество атак в секунду
-  normalAtkCount?: number // количество обычных атак за один удар (вызывают крит и комбо)
-  comboAtkCount?: number // количество дополнительных атак при комбо (не вызывают крит и комбо)
+  critRate: number
+  comboRate: number
+  attackSpeed: number
+  additionalComboAttack?: number
+  additionalNormalAttack?: number
 }
 
-export function calculateDPS(stats: Stats): number {
-  const {
-    damage,
-    critRate,
-    critMultiplier,
-    comboRate,
-    comboMultiplier,
-    attackSpeed,
-    normalAtkCount = 1,
-    comboAtkCount = 1,
-  } = stats
-
-  // Перевод шансов в коэффициенты в диапазоне от 0 до 1
+export function calculateDPS({
+  damage,
+  critMultiplier,
+  comboMultiplier,
+  critRate,
+  comboRate,
+  attackSpeed,
+  additionalComboAttack = 1,
+  additionalNormalAttack = 0,
+}: CharacterAttributes): number {
+  // Перевод шансов в коэффициенты
   const critMultiplierCoefficient = critMultiplier / 100
   const comboMultiplierCoefficient = comboMultiplier / 100
   const critRateCoefficient = Math.min(critRate / 100, 1)
   const comboRateCoefficient = Math.min(comboRate / 100, 1)
 
-  // Вероятности различных типов атак
-  const normalAtkChance = (1 - comboRateCoefficient) * (1 - critRateCoefficient)
-  const critAtkChance = (1 - comboRateCoefficient) * critRateCoefficient
-  const comboAtkChance = comboRateCoefficient * (1 - critRateCoefficient)
-  const comboCritAtkChance = comboRateCoefficient * critRateCoefficient
+  // Шанс обычной атаки без крита
+  const normalRate = (1 - comboRateCoefficient) * (1 - critRateCoefficient)
+  // Шанс обычной атаки с критом
+  const normalCritRate = (1 - comboRateCoefficient) * critRateCoefficient
+  // Шанс комбоатаки без крита
+  const comboRateNonCrit = comboRateCoefficient * (1 - critRateCoefficient)
+  // Шансы комбоатаки с критом
+  const comboCritRate = comboRateCoefficient * critRateCoefficient
 
-  // Урон за обычную атаку
-  const baseDamage = damage
+  // Урон от обычной атаки без крита
+  const normalDamage = damage
+  // Урон от обычной атаки с критом
+  const normalCritDamage = damage * critMultiplierCoefficient
+  // Урон от комбоатаки без крита
+  const comboDamage = damage * comboMultiplierCoefficient
+  // Урон от комбоатаки с критом
+  const comboCritDamage = comboDamage * critMultiplierCoefficient
 
-  // Урон за критическую атаку
-  const critDamage = baseDamage * critMultiplierCoefficient
+  // Дополнительные атаки от обычных атак
+  const additionalNormalDamage =
+    additionalNormalAttack * (damage * (1 - critRateCoefficient) + normalCritDamage * critRateCoefficient)
+  // Дополнительные атаки от комбоатак
+  const additionalComboDamage =
+    additionalComboAttack * (damage * (1 - critRateCoefficient) + normalCritDamage * critRateCoefficient)
 
-  // Урон за комбоатаку
-  const comboDamage = baseDamage * comboMultiplierCoefficient
-  // Урон за доп. атаки от комбоатак (арбалетчик)
-  const comboAdditionalDamage = baseDamage * comboAtkCount
+  // Средний урон от одной атаки, учитывая все виды атак
+  const averageDamagePerAttack =
+    normalRate * (normalDamage + additionalNormalDamage) +
+    normalCritRate * (normalCritDamage + additionalNormalDamage) +
+    comboRateNonCrit * (comboDamage + additionalComboDamage) +
+    comboCritRate * (comboCritDamage + additionalComboDamage)
 
-  // Урон за комбоатаку с критом
-  const comboCritDamage = baseDamage * comboMultiplierCoefficient * critMultiplierCoefficient
-
-  // Средний урон за одну атаку с учетом вероятностей
-  const avgAtkDamage =
-    normalAtkChance * baseDamage +
-    critAtkChance * critDamage +
-    comboAtkChance * (comboDamage + comboAdditionalDamage) +
-    comboCritAtkChance * (comboCritDamage + comboAdditionalDamage)
-
-  // Количество обычных атак за секунду
-  const totalAttacksPerSecond = normalAtkCount * attackSpeed
-
-  // Итоговый DPS
-  const dps = avgAtkDamage * totalAttacksPerSecond
+  // Учитываем скорость атаки для вычисления урона в секунду
+  const dps = averageDamagePerAttack * attackSpeed
 
   return dps
 }

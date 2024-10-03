@@ -6,7 +6,7 @@
 import { Check, CopyDocument } from '@element-plus/icons-vue'
 import { useClipboard } from '@vueuse/core'
 
-const props = defineProps<{ text: string }>()
+const props = defineProps<{ text: string | number }>()
 
-const { copy, copied } = useClipboard({ source: props.text })
+const { copy, copied } = useClipboard({ source: props.text.toString() })
 </script>
