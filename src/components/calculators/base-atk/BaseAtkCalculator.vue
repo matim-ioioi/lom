@@ -51,13 +51,13 @@ import VStatsInput from '@/components/common/VStatsInput.vue'
 import { calculateDPS } from '@/utils/calculateDPS'
 import { formatNumber } from '@/utils/formatNumber'
 
-const baseAttack = ref(739799999)
-const baseAttackMultiplier = ref(2899.06)
-const critMultiplier = ref(4364.49)
-const comboMultiplier = ref(21367.88)
-const critRate = ref(50.3)
-const comboRate = ref(93.47)
-const attackSpeed = ref(3.96)
+const baseAttack = ref('739799999')
+const baseAttackMultiplier = ref('2899.06')
+const critMultiplier = ref('4364.49')
+const comboMultiplier = ref('21367.88')
+const critRate = ref('50.3')
+const comboRate = ref('93.47')
+const attackSpeed = ref('3.96')
 
 const result = computed(() => {
   const attackDamage = (baseAttack.value * baseAttackMultiplier.value) / 100

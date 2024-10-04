@@ -1,10 +1,5 @@
 <template>
-  <el-input
-    v-model="model"
-    :type="props.disabled ? 'text' : 'number'"
-    :placeholder="props.placeholder"
-    :disabled="props.disabled ?? ''"
-  >
+  <el-input v-model="model" :type="props.disabled ? 'text' : 'number'" :placeholder="props.placeholder" :disabled="props.disabled ?? ''">
     <template #prepend>{{ props.placeholder }}</template>
     <template #append><v-copy :text="model" /></template>
     <template v-if="hint" #suffix>
@@ -27,5 +22,5 @@ const props = defineProps<{
   disabled?: boolean
 }>()
 
-const model = defineModel<string | number>({ required: true })
+const model = defineModel<string>({ required: true })
 </script>

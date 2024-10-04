@@ -35,10 +35,10 @@ import { computed, ref } from 'vue'
 import VStatsInput from '@/components/common/VStatsInput.vue'
 import { formatNumber } from '@/utils/formatNumber'
 
-const baseAttack = ref(739799999)
-const skillCoefficient = ref(353.15)
-const criticalSkillCoefficient = ref(183.7)
-const activeSkillCoefficient = ref(0)
+const baseAttack = ref('739799999')
+const skillCoefficient = ref('353.15')
+const criticalSkillCoefficient = ref('183.7')
+const activeSkillCoefficient = ref('0')
 
 const result = computed(() => {
   const skillDamage = (baseAttack.value * skillCoefficient.value) / 100

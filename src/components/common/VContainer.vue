@@ -1,0 +1,59 @@
+<template>
+  <el-container class="v-container" :class="[{ 'v-container--divided': divided }, `v-container--${direction}`]" :direction="direction">
+    <slot />
+  </el-container>
+</template>
+
+<script setup lang="ts">
+const {
+  direction = 'horizontal',
+  gap,
+  divided = false,
+} = defineProps<{
+  direction?: 'vertical' | 'horizontal'
+  gap?: number
+  divided?: boolean
+}>()
+</script>
+
+<style scoped lang="scss">
+.v-container {
+  position: relative;
+
+  $self: &;
+
+  gap: v-bind('(gap) + "px"');
+
+  &#{$self}--divided {
+    &#{$self}--horizontal {
+      & > *:not(:last-child) {
+        &::after {
+          content: '';
+          display: block;
+          position: absolute;
+          width: 1px;
+          height: 100%;
+          background-color: var(--vp-c-divider);
+
+          transform: translateX(calc(v-bind(gap) / 2 * 100%));
+        }
+      }
+    }
+
+    &#{$self}--vertical {
+      & > *:not(:last-child) {
+        &::after {
+          content: '';
+          display: block;
+          position: absolute;
+          width: 100%;
+          height: 1px;
+          background-color: var(--vp-c-divider);
+
+          transform: translateY(calc(v-bind(gap) / 2 * 100%));
+        }
+      }
+    }
+  }
+}
+</style>

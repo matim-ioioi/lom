@@ -9,6 +9,10 @@ export default defineConfig({
     nav: [
       { text: 'Главная', link: '/' },
       {
+        text: 'Настройки',
+        items: [{ text: 'Указание статов', link: '/pages/settings/hero-stats' }],
+      },
+      {
         text: 'Калькуляторы',
         items: [
           { text: 'Расчёт урона с руки', link: '/pages/calculators/base-atk' },
