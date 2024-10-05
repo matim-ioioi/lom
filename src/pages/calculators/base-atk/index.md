@@ -10,4 +10,6 @@ import BaseAtkCalculator from '../../../components/calculators/base-atk/BaseAtkC
 "Средний урон в секунду" для арбалетчика с пробудой и без - это экспериментальные расчёты, т.к. нет официальной информации о том, критуют ли доп. атаки, вызывают ли они комбо и т.д.
 :::
 
+<!--@include: @/md-presets/containers/StatsSyncHint.md-->
+
 <BaseAtkCalculator />

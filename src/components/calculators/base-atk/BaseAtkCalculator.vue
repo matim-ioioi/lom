@@ -50,7 +50,7 @@ import { computed, onMounted, ref } from 'vue'
 import VStatsInput from '@/components/common/VStatsInput.vue'
 import { useHeroStats } from '@/composable/useHeroStats'
 import { calculateDPS } from '@/utils/calculateDPS'
-import { formatNumber } from '@/utils/formatNumber'
+import { toAbbreviatedNumber } from '@/utils/toAbbreviatedNumber'
 
 const { heroStats } = useHeroStats()
 
@@ -109,13 +109,13 @@ const result = computed(() => {
   })
 
   return {
-    attackDamage: formatNumber(attackDamage),
-    criticalDamage: formatNumber(criticalDamage),
-    comboDamage: formatNumber(comboDamage),
-    criticalComboDamage: formatNumber(criticalComboDamage),
-    attackDPS: formatNumber(attackDPS),
-    attackDPSArrowgod: formatNumber(attackDPSArrowgod),
-    attackDPSArrowgodAwaked: formatNumber(attackDPSArrowgodAwaked),
+    attackDamage: toAbbreviatedNumber(attackDamage),
+    criticalDamage: toAbbreviatedNumber(criticalDamage),
+    comboDamage: toAbbreviatedNumber(comboDamage),
+    criticalComboDamage: toAbbreviatedNumber(criticalComboDamage),
+    attackDPS: toAbbreviatedNumber(attackDPS),
+    attackDPSArrowgod: toAbbreviatedNumber(attackDPSArrowgod),
+    attackDPSArrowgodAwaked: toAbbreviatedNumber(attackDPSArrowgodAwaked),
   }
 })
 

@@ -90,21 +90,44 @@
     </div>
 
     <div>
-      <el-button @click="downloadStats">Экспортировать статы (json-файл)</el-button>
-      <el-button @click="saveStats">Сохранить статы в браузере</el-button>
+      <el-row>
+        <el-col :span="24">
+          <el-button type="primary" style="width: 100%" @click="saveStats">Сохранить статы в браузере</el-button>
+        </el-col>
+      </el-row>
+      <el-row style="margin-top: 16px">
+        <el-col :span="24">
+          <el-button style="width: 100%" @click="downloadStats">Экспортировать статы (json-файл)</el-button>
+        </el-col>
+      </el-row>
+      <el-row style="margin-top: 16px">
+        <el-col :span="24">
+          <v-file-uploader trigger-text="Импортировать статы (json-файл)" @change="handleUploadedFile" />
+        </el-col>
+      </el-row>
     </div>
   </v-container>
 </template>
 
 <script setup lang="ts">
 import VContainer from '@/components/common/VContainer.vue'
+import VFileUploader from '@/components/common/VFileUploader.vue'
 import VStatsInput from '@/components/common/VStatsInput.vue'
 import { useHeroStats } from '@/composable/useHeroStats'
 import { downloadObjectAsJSON } from '@/utils/downloadObjectAsJSON'
+import { readFileAsJSON } from '@/utils/readFileAsJSON'
 
 const { key, heroStats, saveStats } = useHeroStats()
 
 const downloadStats = () => {
   downloadObjectAsJSON(heroStats.value, key)
+}
+
+const handleUploadedFile = async (uploadedFile: File) => {
+  const result = await readFileAsJSON<typeof heroStats.value>(uploadedFile)
+
+  if (result) {
+    heroStats.value = result
+  }
 }
 </script>

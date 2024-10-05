@@ -6,4 +6,6 @@ import PalAtkCalculator from '../../../components/calculators/pal-atk/PalAtkCalc
 
 <!--@include: @/md-presets/containers/StatsInputDanger.md-->
 
+<!--@include: @/md-presets/containers/StatsSyncHint.md-->
+
 <PalAtkCalculator />

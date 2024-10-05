@@ -21,7 +21,7 @@ const {
   $self: &;
 
   position: relative;
-  gap: v-bind('(gap) + "px"');
+  gap: v-bind('(gap || 0) + "px"');
 
   &#{$self}--divided {
     &#{$self}--horizontal {
@@ -33,7 +33,7 @@ const {
           position: absolute;
           display: block;
           background-color: var(--vp-c-divider);
-          transform: translateX(calc(v-bind(gap) / 2 * 100%));
+          transform: translateX(calc(v-bind('(gap || 0)') / 2 * 100%));
         }
       }
     }
@@ -47,7 +47,7 @@ const {
           position: absolute;
           display: block;
           background-color: var(--vp-c-divider);
-          transform: translateY(calc(v-bind(gap) / 2 * 100%));
+          transform: translateY(calc(v-bind('(gap || 0)') / 2 * 100%));
         }
       }
     }

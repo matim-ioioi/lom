@@ -27,14 +27,23 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import VStatsInput from '@/components/common/VStatsInput.vue'
-import { formatNumber } from '@/utils/formatNumber'
+import { useHeroStats } from '@/composable/useHeroStats'
+import { toAbbreviatedNumber } from '@/utils/toAbbreviatedNumber'
 
-const baseAttack = ref('739799999')
-const skillCoefficient = ref('353.15')
-const criticalSkillCoefficient = ref('183.7')
+const { heroStats } = useHeroStats()
+
+const baseAttack = ref(heroStats.value.attack)
+const skillCoefficient = ref(heroStats.value.skillMultiplier)
+const criticalSkillCoefficient = ref(heroStats.value.skillCritMultiplier)
 const activeSkillCoefficient = ref('0')
+
+const syncStats = () => {
+  baseAttack.value = heroStats.value.attack
+  skillCoefficient.value = heroStats.value.skillMultiplier
+  criticalSkillCoefficient.value = heroStats.value.skillCritMultiplier
+}
 
 const result = computed(() => {
   const skillDamage = (+baseAttack.value * +skillCoefficient.value) / 100
@@ -43,10 +52,14 @@ const result = computed(() => {
   const criticalActiveSkillDamage = (activeSkillDamage * +criticalSkillCoefficient.value) / 100
 
   return {
-    skillDamage: formatNumber(skillDamage),
-    criticalSkillDamage: formatNumber(criticalSkillDamage),
-    activeSkillDamage: formatNumber(activeSkillDamage),
-    criticalActiveSkillDamage: formatNumber(criticalActiveSkillDamage),
+    skillDamage: toAbbreviatedNumber(skillDamage),
+    criticalSkillDamage: toAbbreviatedNumber(criticalSkillDamage),
+    activeSkillDamage: toAbbreviatedNumber(activeSkillDamage),
+    criticalActiveSkillDamage: toAbbreviatedNumber(criticalActiveSkillDamage),
   }
+})
+
+onMounted(() => {
+  syncStats()
 })
 </script>

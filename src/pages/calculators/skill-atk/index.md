@@ -6,4 +6,6 @@ import SkillAtkCalculator from '../../../components/calculators/skill-atk/SkillA
 
 <!--@include: @/md-presets/containers/StatsInputDanger.md-->
 
+<!--@include: @/md-presets/containers/StatsSyncHint.md-->
+
 <SkillAtkCalculator />
