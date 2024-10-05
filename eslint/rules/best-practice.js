@@ -8,6 +8,13 @@ module.exports = {
     'array-callback-return': ['error', { allowImplicit: true, checkForEach: false }],
 
     /**
+     * Настройки для ограничений по кол-ву символов (длины строк, ширина табов..)
+     *
+     * 🚫 Не исправляется автоматически - https://eslint.style/rules/js/max-len
+     */
+    '@stylistic/max-len': ['error', { code: 300, tabWidth: 2, ignoreComments: true, ignoreUrls: true, ignoreTrailingComments: true }],
+
+    /**
      * Обязывает удалять точки с запятой
      *
      * 🔧 Исправляется автоматически - https://eslint.style/rules/js/semi

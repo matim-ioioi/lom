@@ -18,10 +18,9 @@ const {
 
 <style scoped lang="scss">
 .v-container {
-  position: relative;
-
   $self: &;
 
+  position: relative;
   gap: v-bind('(gap) + "px"');
 
   &#{$self}--divided {
@@ -29,12 +28,11 @@ const {
       & > *:not(:last-child) {
         &::after {
           content: '';
-          display: block;
-          position: absolute;
           width: 1px;
           height: 100%;
+          position: absolute;
+          display: block;
           background-color: var(--vp-c-divider);
-
           transform: translateX(calc(v-bind(gap) / 2 * 100%));
         }
       }
@@ -44,12 +42,11 @@ const {
       & > *:not(:last-child) {
         &::after {
           content: '';
-          display: block;
-          position: absolute;
           width: 100%;
           height: 1px;
+          position: absolute;
+          display: block;
           background-color: var(--vp-c-divider);
-
           transform: translateY(calc(v-bind(gap) / 2 * 100%));
         }
       }

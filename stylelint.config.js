@@ -450,26 +450,17 @@ module.exports = {
 
     'comment-no-empty': true,
     'comment-whitespace-inside': 'always',
-    'comment-empty-line-before': [
-      'always',
-      { except: ['first-nested'], ignore: ['after-comment', 'stylelint-commands'] },
-    ],
+    'comment-empty-line-before': ['always', { except: ['first-nested'], ignore: ['after-comment', 'stylelint-commands'] }],
 
     'custom-media-pattern': null,
     'custom-property-pattern': null,
-    'custom-property-empty-line-before': [
-      'always',
-      { except: ['after-custom-property', 'first-nested'], ignore: ['after-comment', 'inside-single-line-block'] },
-    ],
+    'custom-property-empty-line-before': ['always', { except: ['after-custom-property', 'first-nested'], ignore: ['after-comment', 'inside-single-line-block'] }],
 
     'declaration-block-no-duplicate-properties': true,
     'declaration-block-no-redundant-longhand-properties': true,
     'declaration-block-no-shorthand-property-overrides': true,
     'declaration-block-single-line-max-declarations': 0,
-    'declaration-empty-line-before': [
-      'always',
-      { except: ['after-declaration', 'first-nested'], ignore: ['after-comment', 'inside-single-line-block'] },
-    ],
+    'declaration-empty-line-before': ['always', { except: ['after-declaration', 'first-nested'], ignore: ['after-comment', 'inside-single-line-block'] }],
     'declaration-no-important': [true, { severity: 'warning' }],
 
     'font-family-name-quotes': 'always-unless-keyword',
@@ -526,10 +517,7 @@ module.exports = {
     'scss/dollar-variable-empty-line-before': null,
     'scss/dollar-variable-no-missing-interpolation': null,
     'scss/dollar-variable-pattern': null,
-    'scss/double-slash-comment-empty-line-before': [
-      'always',
-      { except: ['first-nested'], ignore: ['between-comments', 'stylelint-commands'] },
-    ],
+    'scss/double-slash-comment-empty-line-before': ['always', { except: ['first-nested'], ignore: ['between-comments', 'stylelint-commands'] }],
     'scss/double-slash-comment-inline': null,
     'scss/double-slash-comment-whitespace-inside': null,
     'scss/media-feature-value-dollar-variable': null,

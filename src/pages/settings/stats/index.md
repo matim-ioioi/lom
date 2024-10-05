@@ -1,5 +1,5 @@
 <script setup>
-import VHeroStats from '../../../components/common/VHeroStats.vue'
+import SettingStatsPage from './SettingStatsPage.vue'
 </script>
 
 # Настройки ваших статов
@@ -11,10 +11,6 @@ import VHeroStats from '../../../components/common/VHeroStats.vue'
 Поэтому рекомендуется ввести все статы, скачать `json`-файл и сохранить его куда-нибудь, дабы не вводить свои статы заново! Ну или хотя бы "сохранить в браузере"
 :::
 
-::: danger Внимание!
-Вводите данные из блока "Сравнение характеристик". Для этого откройте профиль любого игрока и нажмите "Сравнение хар-к"
+<!--@include: @/md-presets/containers/StatsInputDanger.md-->
 
-Вводите данные полностью (например, если ваша конечная атака `74539.6К`, то вводите `74539600`. Если `746.5М`, вводите `746500000`)
-:::
-
-<VHeroStats />
+<SettingStatsPage />

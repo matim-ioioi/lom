@@ -7,10 +7,10 @@ export default defineConfig({
   description: 'Utilities and guides for LoM',
   themeConfig: {
     nav: [
-      { text: 'Главная', link: '/' },
+      { text: 'Главная', link: '/', base: '123' },
       {
         text: 'Настройки',
-        items: [{ text: 'Указание статов', link: '/pages/settings/hero-stats' }],
+        items: [{ text: 'Статы', link: '/pages/settings/stats' }],
       },
       {
         text: 'Калькуляторы',

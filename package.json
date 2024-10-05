@@ -3,7 +3,7 @@
     "lint:tslint": "vue-tsc -p tsconfig.json --noEmit",
     "lint:eslint": "eslint . --no-eslintrc --config .eslintrc.js --ext .js,.ts,.vue,.mts",
     "lint:stylelint": "stylelint **/*.{css,scss,vue} --allow-empty-input",
-    "lint:fix": "npm run lint --fix",
+    "lint:fix": "npm run lint:eslint -- --fix && npm run lint:stylelint -- --fix && npm run lint:tslint",
     "lint": "npm run lint:eslint && npm run lint:stylelint && npm run lint:tslint",
     "dev": "vitepress dev src",
     "build": "vitepress build src",

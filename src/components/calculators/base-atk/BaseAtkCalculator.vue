@@ -1,15 +1,15 @@
 <template>
   <section>
-    <h2>Введите свои статы</h2>
+    <h2>Введите статы для рассчёта</h2>
     <el-row>
       <el-col>
         <v-stats-input v-model="baseAttack" placeholder="Конечная атака, ед." />
-        <v-stats-input v-model="baseAttackMultiplier" placeholder="Конечная атака, ед." />
-        <v-stats-input v-model="critMultiplier" placeholder="Мультипликатор обычной атаки, %" />
-        <v-stats-input v-model="comboMultiplier" placeholder="Мультипликатор крита, %" />
-        <v-stats-input v-model="critRate" placeholder="Мультипликатор комбоатаки, %" />
-        <v-stats-input v-model="comboRate" placeholder="Шанс крита, %" />
-        <v-stats-input v-model="attackSpeed" placeholder="Шанс комбоатаки, %" />
+        <v-stats-input v-model="baseAttackMultiplier" placeholder="Мультипликатор обычной атаки, %" />
+        <v-stats-input v-model="critMultiplier" placeholder="Мультипликатор крита, %" />
+        <v-stats-input v-model="comboMultiplier" placeholder="Мультипликатор комбоатаки, %" />
+        <v-stats-input v-model="critRate" placeholder="Шанс крита, %" />
+        <v-stats-input v-model="comboRate" placeholder="Шанс комбоатаки, %" />
+        <v-stats-input v-model="attackSpeed" placeholder="Скорость атаки, ед." />
       </el-col>
     </el-row>
     <h2>Результаты</h2>
@@ -46,51 +46,64 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import VStatsInput from '@/components/common/VStatsInput.vue'
+import { useHeroStats } from '@/composable/useHeroStats'
 import { calculateDPS } from '@/utils/calculateDPS'
 import { formatNumber } from '@/utils/formatNumber'
 
-const baseAttack = ref('739799999')
-const baseAttackMultiplier = ref('2899.06')
-const critMultiplier = ref('4364.49')
-const comboMultiplier = ref('21367.88')
-const critRate = ref('50.3')
-const comboRate = ref('93.47')
-const attackSpeed = ref('3.96')
+const { heroStats } = useHeroStats()
+
+const baseAttack = ref(heroStats.value.attack)
+const baseAttackMultiplier = ref(heroStats.value.baseAttackMultiplier)
+const critMultiplier = ref(heroStats.value.critMultiplier)
+const comboMultiplier = ref(heroStats.value.comboMultiplier)
+const critRate = ref(heroStats.value.critRate)
+const comboRate = ref(heroStats.value.comboRate)
+const attackSpeed = ref(heroStats.value.attackSpeed)
+
+const syncStats = () => {
+  baseAttack.value = heroStats.value.attack
+  baseAttackMultiplier.value = heroStats.value.baseAttackMultiplier
+  critMultiplier.value = heroStats.value.critMultiplier
+  comboMultiplier.value = heroStats.value.comboMultiplier
+  critRate.value = heroStats.value.critRate
+  comboRate.value = heroStats.value.comboRate
+  attackSpeed.value = heroStats.value.attackSpeed
+}
 
 const result = computed(() => {
-  const attackDamage = (baseAttack.value * baseAttackMultiplier.value) / 100
-  const criticalDamage = (attackDamage * critMultiplier.value) / 100
-  const comboDamage = (attackDamage * comboMultiplier.value) / 100
+  const attackDamage = (+baseAttack.value * +baseAttackMultiplier.value) / 100
+  const criticalDamage = (attackDamage * +critMultiplier.value) / 100
+  const comboDamage = (attackDamage * +comboMultiplier.value) / 100
 
-  const criticalComboDamage = (criticalDamage * comboMultiplier.value) / 100
+  const criticalComboDamage = (criticalDamage * +comboMultiplier.value) / 100
 
   const attackDPS = calculateDPS({
     damage: attackDamage,
-    critRate: critRate.value,
-    critMultiplier: critMultiplier.value,
-    comboRate: comboRate.value,
-    comboMultiplier: comboMultiplier.value,
-    attackSpeed: attackSpeed.value,
+    critRate: +critRate.value,
+    critMultiplier: +critMultiplier.value,
+    comboRate: +comboRate.value,
+    comboMultiplier: +comboMultiplier.value,
+    attackSpeed: +attackSpeed.value,
   })
   const attackDPSArrowgod = calculateDPS({
     damage: attackDamage,
-    critRate: critRate.value,
-    critMultiplier: critMultiplier.value,
-    comboRate: comboRate.value,
-    comboMultiplier: comboMultiplier.value,
-    attackSpeed: attackSpeed.value,
+    critRate: +critRate.value,
+    critMultiplier: +critMultiplier.value,
+    comboRate: +comboRate.value,
+    comboMultiplier: +comboMultiplier.value,
+    attackSpeed: +attackSpeed.value,
     additionalNormalAttack: 2,
     additionalComboAttack: 2,
   })
   const attackDPSArrowgodAwaked = calculateDPS({
     damage: attackDamage,
-    critRate: critRate.value,
-    critMultiplier: critMultiplier.value,
-    comboRate: comboRate.value,
-    comboMultiplier: comboMultiplier.value,
-    attackSpeed: attackSpeed.value,
+    critRate: +critRate.value,
+    critMultiplier: +critMultiplier.value,
+    comboRate: +comboRate.value,
+    comboMultiplier: +comboMultiplier.value,
+    attackSpeed: +attackSpeed.value,
     additionalNormalAttack: 2,
     additionalComboAttack: 3,
   })
@@ -104,5 +117,9 @@ const result = computed(() => {
     attackDPSArrowgod: formatNumber(attackDPSArrowgod),
     attackDPSArrowgodAwaked: formatNumber(attackDPSArrowgodAwaked),
   }
+})
+
+onMounted(() => {
+  syncStats()
 })
 </script>

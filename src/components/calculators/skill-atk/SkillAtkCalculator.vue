@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h2>Введите свои статы</h2>
+    <h2>Введите статы для рассчёта</h2>
     <el-row>
       <el-col>
         <v-stats-input v-model="baseAttack" placeholder="Конечная атака" />
@@ -20,11 +20,7 @@
         <v-stats-input v-model="result.skillDamage" placeholder="Урон с навыка" disabled />
         <v-stats-input v-model="result.criticalSkillDamage" placeholder="Урон с крита навыка" disabled />
         <v-stats-input v-model="result.activeSkillDamage" placeholder="Урон с активного навыка" disabled />
-        <v-stats-input
-          v-model="result.criticalActiveSkillDamage"
-          placeholder="Урон с крита активного навыка"
-          disabled
-        />
+        <v-stats-input v-model="result.criticalActiveSkillDamage" placeholder="Урон с крита активного навыка" disabled />
       </el-col>
     </el-row>
   </section>
@@ -41,10 +37,10 @@ const criticalSkillCoefficient = ref('183.7')
 const activeSkillCoefficient = ref('0')
 
 const result = computed(() => {
-  const skillDamage = (baseAttack.value * skillCoefficient.value) / 100
-  const criticalSkillDamage = (skillDamage * criticalSkillCoefficient.value) / 100
-  const activeSkillDamage = (skillDamage * activeSkillCoefficient.value) / 100
-  const criticalActiveSkillDamage = (activeSkillDamage * criticalSkillCoefficient.value) / 100
+  const skillDamage = (+baseAttack.value * +skillCoefficient.value) / 100
+  const criticalSkillDamage = (skillDamage * +criticalSkillCoefficient.value) / 100
+  const activeSkillDamage = (skillDamage * +activeSkillCoefficient.value) / 100
+  const criticalActiveSkillDamage = (activeSkillDamage * +criticalSkillCoefficient.value) / 100
 
   return {
     skillDamage: formatNumber(skillDamage),
