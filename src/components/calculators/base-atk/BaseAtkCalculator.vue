@@ -50,6 +50,7 @@ import { computed, onMounted, ref } from 'vue'
 import VStatsInput from '@/components/common/VStatsInput.vue'
 import { useHeroStats } from '@/composable/useHeroStats'
 import { calculateDPS } from '@/utils/calculateDPS'
+import { fromAbbreviatedNumber } from '@/utils/fromAbbreviatedNumber'
 import { toAbbreviatedNumber } from '@/utils/toAbbreviatedNumber'
 
 const { heroStats } = useHeroStats()
@@ -73,37 +74,37 @@ const syncStats = () => {
 }
 
 const result = computed(() => {
-  const attackDamage = (+baseAttack.value * +baseAttackMultiplier.value) / 100
-  const criticalDamage = (attackDamage * +critMultiplier.value) / 100
-  const comboDamage = (attackDamage * +comboMultiplier.value) / 100
+  const attackDamage = (+fromAbbreviatedNumber(baseAttack.value) * +fromAbbreviatedNumber(baseAttackMultiplier.value)) / 100
+  const criticalDamage = (attackDamage * +fromAbbreviatedNumber(critMultiplier.value)) / 100
+  const comboDamage = (attackDamage * +fromAbbreviatedNumber(comboMultiplier.value)) / 100
 
-  const criticalComboDamage = (criticalDamage * +comboMultiplier.value) / 100
+  const criticalComboDamage = (criticalDamage * +fromAbbreviatedNumber(comboMultiplier.value)) / 100
 
   const attackDPS = calculateDPS({
     damage: attackDamage,
-    critRate: +critRate.value,
-    critMultiplier: +critMultiplier.value,
-    comboRate: +comboRate.value,
-    comboMultiplier: +comboMultiplier.value,
-    attackSpeed: +attackSpeed.value,
+    critRate: +fromAbbreviatedNumber(critRate.value),
+    critMultiplier: +fromAbbreviatedNumber(critMultiplier.value),
+    comboRate: +fromAbbreviatedNumber(comboRate.value),
+    comboMultiplier: +fromAbbreviatedNumber(comboMultiplier.value),
+    attackSpeed: +fromAbbreviatedNumber(attackSpeed.value),
   })
   const attackDPSArrowgod = calculateDPS({
     damage: attackDamage,
-    critRate: +critRate.value,
-    critMultiplier: +critMultiplier.value,
-    comboRate: +comboRate.value,
-    comboMultiplier: +comboMultiplier.value,
-    attackSpeed: +attackSpeed.value,
+    critRate: +fromAbbreviatedNumber(critRate.value),
+    critMultiplier: +fromAbbreviatedNumber(critMultiplier.value),
+    comboRate: +fromAbbreviatedNumber(comboRate.value),
+    comboMultiplier: +fromAbbreviatedNumber(comboMultiplier.value),
+    attackSpeed: +fromAbbreviatedNumber(attackSpeed.value),
     additionalNormalAttack: 2,
     additionalComboAttack: 2,
   })
   const attackDPSArrowgodAwaked = calculateDPS({
     damage: attackDamage,
-    critRate: +critRate.value,
-    critMultiplier: +critMultiplier.value,
-    comboRate: +comboRate.value,
-    comboMultiplier: +comboMultiplier.value,
-    attackSpeed: +attackSpeed.value,
+    critRate: +fromAbbreviatedNumber(critRate.value),
+    critMultiplier: +fromAbbreviatedNumber(critMultiplier.value),
+    comboRate: +fromAbbreviatedNumber(comboRate.value),
+    comboMultiplier: +fromAbbreviatedNumber(comboMultiplier.value),
+    attackSpeed: +fromAbbreviatedNumber(attackSpeed.value),
     additionalNormalAttack: 2,
     additionalComboAttack: 3,
   })

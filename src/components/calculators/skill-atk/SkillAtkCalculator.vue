@@ -30,6 +30,7 @@
 import { computed, onMounted, ref } from 'vue'
 import VStatsInput from '@/components/common/VStatsInput.vue'
 import { useHeroStats } from '@/composable/useHeroStats'
+import { fromAbbreviatedNumber } from '@/utils/fromAbbreviatedNumber'
 import { toAbbreviatedNumber } from '@/utils/toAbbreviatedNumber'
 
 const { heroStats } = useHeroStats()
@@ -46,10 +47,10 @@ const syncStats = () => {
 }
 
 const result = computed(() => {
-  const skillDamage = (+baseAttack.value * +skillCoefficient.value) / 100
-  const criticalSkillDamage = (skillDamage * +criticalSkillCoefficient.value) / 100
-  const activeSkillDamage = (skillDamage * +activeSkillCoefficient.value) / 100
-  const criticalActiveSkillDamage = (activeSkillDamage * +criticalSkillCoefficient.value) / 100
+  const skillDamage = (+fromAbbreviatedNumber(baseAttack.value) * +fromAbbreviatedNumber(skillCoefficient.value)) / 100
+  const criticalSkillDamage = (skillDamage * +fromAbbreviatedNumber(criticalSkillCoefficient.value)) / 100
+  const activeSkillDamage = (skillDamage * +fromAbbreviatedNumber(activeSkillCoefficient.value)) / 100
+  const criticalActiveSkillDamage = (activeSkillDamage * +fromAbbreviatedNumber(criticalSkillCoefficient.value)) / 100
 
   return {
     skillDamage: toAbbreviatedNumber(skillDamage),

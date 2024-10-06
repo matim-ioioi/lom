@@ -40,7 +40,15 @@ export function calculateDPS({ damage, critMultiplier, comboMultiplier, critRate
   const additionalComboDamage = additionalComboAttack * (damage * (1 - critRateCoefficient) + normalCritDamage * critRateCoefficient)
 
   // Средний урон от одной атаки, учитывая все виды атак
-  const averageDamagePerAttack = normalRate * (normalDamage + additionalNormalDamage) + normalCritRate * (normalCritDamage + additionalNormalDamage) + comboRateNonCrit * (comboDamage + additionalComboDamage) + comboCritRate * (comboCritDamage + additionalComboDamage)
+  const averageDamagePerAttack =
+    // Обычная атака без модификаторов
+    normalRate * (normalDamage + additionalNormalDamage) +
+    // Обычная атака с критом
+    normalCritRate * (normalCritDamage + additionalNormalDamage) +
+    // Комбоатака без крита
+    comboRateNonCrit * (comboDamage + additionalComboDamage) +
+    // Комбоатака с критом
+    comboCritRate * (comboCritDamage + additionalComboDamage)
 
   // Учитываем скорость атаки для вычисления урона в секунду
   const dps = averageDamagePerAttack * attackSpeed

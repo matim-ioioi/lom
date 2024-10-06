@@ -63,6 +63,7 @@ import VStatsInput from '@/components/common/VStatsInput.vue'
 import { useHeroStats } from '@/composable/useHeroStats'
 import { usePalsStats } from '@/composable/usePalsStats'
 import { calculateDPS } from '@/utils/calculateDPS'
+import { fromAbbreviatedNumber } from '@/utils/fromAbbreviatedNumber'
 import { toAbbreviatedNumber } from '@/utils/toAbbreviatedNumber'
 
 type GeneralProperties = {
@@ -134,19 +135,19 @@ const syncStats = () => {
 
 const results = computed(() => {
   return palStats.map((pal) => {
-    const attackDamage = ((+generalStats.baseAttack * +generalStats.palAttackMultiplier) / 100) * +pal.palAttackCoefficient
-    const criticalDamage = (attackDamage * +generalStats.palCritMultiplier) / 100
-    const comboDamage = (attackDamage * +generalStats.palComboMultiplier) / 100
+    const attackDamage = ((+fromAbbreviatedNumber(generalStats.baseAttack) * +fromAbbreviatedNumber(generalStats.palAttackMultiplier)) / 100) * +pal.palAttackCoefficient
+    const criticalDamage = (attackDamage * +fromAbbreviatedNumber(generalStats.palCritMultiplier)) / 100
+    const comboDamage = (attackDamage * +fromAbbreviatedNumber(generalStats.palComboMultiplier)) / 100
 
-    const criticalComboDamage = (criticalDamage * +generalStats.palComboMultiplier) / 100
+    const criticalComboDamage = (criticalDamage * +fromAbbreviatedNumber(generalStats.palComboMultiplier)) / 100
 
     const attackDPS = calculateDPS({
       damage: attackDamage,
-      critRate: +generalStats.palCritRate,
-      critMultiplier: +generalStats.palCritMultiplier,
-      comboRate: +generalStats.palComboRate,
-      comboMultiplier: +generalStats.palComboMultiplier,
-      attackSpeed: +pal.palAttackSpeed,
+      critRate: +fromAbbreviatedNumber(generalStats.palCritRate),
+      critMultiplier: +fromAbbreviatedNumber(generalStats.palCritMultiplier),
+      comboRate: +fromAbbreviatedNumber(generalStats.palComboRate),
+      comboMultiplier: +fromAbbreviatedNumber(generalStats.palComboMultiplier),
+      attackSpeed: +fromAbbreviatedNumber(pal.palAttackSpeed),
     })
 
     return {

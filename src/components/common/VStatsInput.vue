@@ -2,7 +2,7 @@
   <client-only>
     <div>
       <el-text v-if="screen.isXs" type="info">{{ props.placeholder }}</el-text>
-      <el-input v-model="model" :type="props.disabled ? 'text' : 'number'" :placeholder="props.placeholder" :disabled="props.disabled ?? ''">
+      <el-input v-model="model" :type="'text'" :placeholder="props.placeholder" :disabled="props.disabled ?? ''">
         <template v-if="!screen.isXs" #prepend>{{ props.placeholder }}</template>
         <template #append><v-copy :text="model" /></template>
         <template v-if="hint" #suffix>
