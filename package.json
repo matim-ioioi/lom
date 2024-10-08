@@ -7,7 +7,7 @@
     "lint": "npm run lint:eslint && npm run lint:stylelint && npm run lint:tslint",
     "dev": "vitepress dev src",
     "build": "vitepress build src",
-    "start": "vitepress preview src"
+    "start": "vitepress preview src --port 8080"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",

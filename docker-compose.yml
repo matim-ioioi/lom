@@ -1,0 +1,8 @@
+version: '3'
+services:
+  lom:
+    build:
+      context: .
+      dockerfile: ./containers/Dockerfile
+    ports:
+      - "8080:8080"
