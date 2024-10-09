@@ -16,7 +16,7 @@ env:
 
 jobs:
   build:
-    runs-on: alpine-latest
+    runs-on: ubuntu-latest
     steps:
       # Initialization
 
@@ -77,7 +77,7 @@ jobs:
     if: github.event_name != 'pull_request'
     needs: build
     name: Deploy to VPS
-    runs-on: alpine-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Connect to VPS by SSH, pull latest image and run container
         uses: appleboy/ssh-action@master
