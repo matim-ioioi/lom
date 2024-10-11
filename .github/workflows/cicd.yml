@@ -71,4 +71,6 @@ jobs:
           script: |
             docker login -u ${{ secrets.DOCKERHUB_LOGIN }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
             docker pull "${{ env.IMAGE_NAME }}:latest"
+            docker stop lomguide
+            docker remove lomguide
             docker run --name lomguide -p 127.0.0.1:3000:8080/tcp -d "matimioioi/lom:latest"
