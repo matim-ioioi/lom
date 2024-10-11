@@ -167,9 +167,9 @@ const luckySpinnerData = reactive<(LuckySpinnerDataItem | PredictedLuckySpinnerD
   // 3 repeat iteration
   { week: 21, items: [BLADE_PURSUIT, RED_SOUL_2] },
   { week: 22, items: [MAGIC_CARPET, KOI_PAPER_KITE, MINI_MOTORCYCLE] },
-  // 1 repeat shorted iteration
+  // 1 repeat iteration
   { week: 23, items: [MOONLIT_WISP, RED_SOUL_2] },
-  { week: 24, items: [WHITE_TIGER, BLUE_OX] },
+  { week: 24, items: [CHAOTIC_HAMMER, WHITE_TIGER, BLUE_OX] },
   // 2 repeat iteration
   { week: 25, items: [EMERALD_EMBRACE, RED_SOUL_2] },
   { week: 26, items: [BLUE_QUEEN, ROUND_FROG, PURPLE_WING] },
@@ -201,7 +201,7 @@ const isRowPredicted = ({ row }: { row: any }) => {
 
 <style scoped lang="scss">
 .lucky-spinner {
-  padding: 60px;
+  padding: 60px 0;
 }
 
 :deep(.lucky-spinner-prediction) {

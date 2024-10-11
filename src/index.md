@@ -4,7 +4,7 @@ layout: home
 
 hero:
   name: "GOD-пространство"
-  text: "Калькуляторы, утилиты и гайды для игры LeagueOfMushroom"
+  text: "Калькуляторы, утилиты и гайды для игры LegendOfMushroom"
   tagline: Сервер RU-39 | клан GOD. Присоединяйся!  
   actions:
     - theme: brand

@@ -16,6 +16,14 @@ export default {
   Layout: () => {
     return h(DefaultTheme.Layout, null, {
       // https://vitepress.dev/guide/extending-default-theme#layout-slots
+      'nav-bar-title-after': () => {
+        const dateOpening = new Date('2024-04-23T00:00:00.000Z')
+        const dateNow = new Date()
+
+        const dateDifference = dateNow.getTime() - dateOpening.getTime()
+
+        return h('span', { class: 'ml-8' }, `| ${Math.floor(dateDifference / (1000 * 3600 * 24) / 7)} неделя сервера`)
+      },
     })
   },
   enhanceApp({ app, router: _router, siteData: _siteData }) {
