@@ -6,6 +6,7 @@ import { h } from 'vue'
 import { screenVariablesPlugin } from '@/.vitepress/plugins/screenVariables'
 
 import './style.css'
+import './snippets/_index.scss'
 import 'element-plus/dist/index.css'
 import 'element-plus/theme-chalk/dark/css-vars.css'
 import 'element-plus/theme-chalk/display.css'

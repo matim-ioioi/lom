@@ -9,10 +9,14 @@ const {
   direction = 'horizontal',
   gap,
   divided = false,
+  align = 'start',
+  justify = 'start',
 } = defineProps<{
   direction?: 'vertical' | 'horizontal'
   gap?: number
   divided?: boolean
+  align?: 'start' | 'center' | 'end'
+  justify?: 'start' | 'center' | 'end' | 'space-between' | 'space-around'
 }>()
 </script>
 
@@ -22,6 +26,8 @@ const {
 
   position: relative;
   gap: v-bind('(gap || 0) + "px"');
+  align-items: v-bind(align);
+  justify-content: v-bind(justify);
 
   &#{$self}--divided {
     &#{$self}--horizontal {

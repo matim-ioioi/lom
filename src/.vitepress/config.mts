@@ -29,6 +29,10 @@ export default defineConfig({
         ],
       },
       {
+        text: 'Календари',
+        items: [{ text: 'Lucky Spinner', link: '/pages/calendars/lucky-spinner' }],
+      },
+      {
         text: 'Гайды по классам',
         items: [
           { text: 'Лучник', link: '/pages/guides/classes/hunter' },
