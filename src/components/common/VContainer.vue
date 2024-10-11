@@ -25,9 +25,9 @@ const {
   $self: &;
 
   position: relative;
-  gap: v-bind('(gap || 0) + "px"');
   align-items: v-bind(align);
   justify-content: v-bind(justify);
+  gap: v-bind('(gap || 0) + "px"');
 
   &#{$self}--divided {
     &#{$self}--horizontal {
