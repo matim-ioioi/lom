@@ -44,8 +44,8 @@ jobs:
 
       # Login to dockerhub
       - name: Login to dockerhub
-      # if: github.event_name != 'pull_request'
-        run: docker login -u ${{ secrets.DOCKERHUB_LOGIN }}
+        if: github.event_name != 'pull_request'
+        run: docker login -u ${{ secrets.DOCKERHUB_LOGIN }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
       # Build docker image
       - name: Build image
         id: build-image
@@ -69,6 +69,6 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.PRIVATE_KEY }}
           script: |
-            docker login -u ${{ secrets.DOCKERHUB_LOGIN }}
+            docker login -u ${{ secrets.DOCKERHUB_LOGIN }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
             docker pull "${{ env.IMAGE_NAME }}:latest"
             docker run --name lomguide -p 127.0.0.1:3000:8080/tcp -d "matimioioi/lom:latest"
