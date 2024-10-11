@@ -50,7 +50,7 @@ jobs:
       - name: Build and push Docker image
         id: build-and-push
         run: |
-          docker-compose build
+          docker buildx build --platform=linux/amd64,linux/arm64 -f ./containers/Dockerfile -t "${{ env.IMAGE_NAME }}:latest" .
           docker push "${{ env.IMAGE_NAME }}:latest"
 
   deploy:
