@@ -43,15 +43,18 @@ jobs:
       # Docker
 
       # Login to dockerhub
-      - name: Docker login
+      - name: Login to dockerhub
         if: github.event_name != 'pull_request'
         run: docker login -u ${{ secrets.DOCKERHUB_LOGIN }}
-      # Build and push Docker image with Buildx (don't push on PR)
-      - name: Build and push Docker image
-        id: build-and-push
-        run: |
-          docker buildx build --platform=linux/amd64,linux/arm64 -f ./containers/Dockerfile -t "${{ env.IMAGE_NAME }}:latest" .
-          docker push "${{ env.IMAGE_NAME }}:latest"
+      # Build docker image
+      - name: Build image
+        id: build-image
+        run: docker buildx build --platform=linux/amd64 -f ./containers/Dockerfile -t "${{ env.IMAGE_NAME }}:latest" .
+      # Push docker image
+      - name: Push image to docker hub
+        if: github.event_name != 'pull_request'
+        id: push-image
+        run: docker push "${{ env.IMAGE_NAME }}:latest"
 
   deploy:
     if: github.event_name != 'pull_request'
