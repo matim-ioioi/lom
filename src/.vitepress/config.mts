@@ -15,16 +15,34 @@ export default defineConfig({
       {
         text: 'Калькуляторы',
         items: [
-          { text: 'Расчёт урона с руки', link: '/pages/calculators/base-atk' },
-          { text: 'Расчёт урона с навыков', link: '/pages/calculators/skill-atk' },
-          { text: 'Расчёт урона партнёров', link: '/pages/calculators/pal-atk' },
           {
-            text: 'Расчёт бонусов атрибутов летающих питомцев',
-            link: '/pages/calculators/flying-pets/attributes-bonuses',
+            text: 'Урон',
+            items: [
+              { text: 'Расчёт урона с руки', link: '/pages/calculators/damage/base-atk' },
+              { text: 'Расчёт урона с навыков', link: '/pages/calculators/damage/skill-atk' },
+              { text: 'Расчёт урона партнёров', link: '/pages/calculators/damage/pal-atk' },
+            ],
           },
           {
-            text: 'Расчёт шансов выпадения атрибутов летающих питомцев',
-            link: '/pages/calculators/flying-pets/attributes-chances',
+            text: 'Души',
+            items: [{ text: 'Расчёт уровня души исходя из статов', link: '/pages/calculators/souls/level-by-stats' }],
+          },
+          {
+            text: 'Печати пробуждения',
+            items: [{ text: 'Расчёт уровня печати пробуждения исходя из статов', link: '/pages/calculators/awakening/level-by-stats' }],
+          },
+          {
+            text: 'Летающие питомцы',
+            items: [
+              {
+                text: 'Расчёт бонусов атрибутов летающих питомцев',
+                link: '/pages/calculators/flying-pets/attributes-bonuses',
+              },
+              {
+                text: 'Расчёт шансов выпадения атрибутов летающих питомцев',
+                link: '/pages/calculators/flying-pets/attributes-chances',
+              },
+            ],
           },
         ],
       },
@@ -36,7 +54,7 @@ export default defineConfig({
         text: 'Гайды по классам',
         items: [
           { text: 'Лучник', link: '/pages/guides/classes/hunter' },
-          { text: 'Арбалетчик', link: '/pages/guides/classes/hunter' },
+          { text: 'Арбалетчик', link: '/pages/guides/classes/arrowgod' },
           { text: 'Вар', link: '/pages/guides/classes/warrior' },
           { text: 'Берсерк', link: '/pages/guides/classes/berserker' },
           { text: 'Целитель', link: '/pages/guides/classes/prophet' },
@@ -45,23 +63,28 @@ export default defineConfig({
       },
     ],
     sidebar: {
-      '/pages/calculators/': {
-        base: '/pages/calculators',
+      '/pages/calculators/damage/': {
+        base: '/pages/calculators/damage',
         items: [
           { text: 'Расчёт урона с руки', link: '/base-atk' },
           { text: 'Расчёт урона с навыков', link: '/skill-atk' },
           { text: 'Расчёт урона партнёров', link: '/pal-atk' },
+        ],
+      },
+      '/pages/calculators/flying-pets/': {
+        base: '/pages/calculators/flying-pets',
+        items: [
           {
             text: 'Расчёт бонусов атрибутов летающих питомцев',
-            link: '/flying-pets/attributes-bonuses',
+            link: '/attributes-bonuses',
           },
           {
             text: 'Расчёт шансов выпадения атрибутов летающих питомцев',
-            link: '/flying-pets/attributes-chances',
+            link: '/attributes-chances',
           },
         ],
       },
-      '/guides/classes/': {
+      '/pages/guides/classes/': {
         base: '/pages/guides/classes',
         items: [
           { text: 'Лучник', link: '/hunter' },

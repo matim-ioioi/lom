@@ -1,5 +1,5 @@
 <script setup>
-import PalAtkCalculator from '../../../components/calculators/pal-atk/PalAtkCalculator.vue'
+import PalAtkCalculator from '../../../../components/calculators/damage/pal-atk/PalAtkCalculator.vue'
 </script>
 
 # Калькулятор для расчёта урона от партнёров
