@@ -68,6 +68,14 @@ jobs:
     name: Deploy to VPS
     runs-on: ubuntu-latest
     steps:
+      # Set short SHA
+      - name: Set short git commit SHA
+        id: vars
+        run: |
+          calculatedSha=$(git rev-parse --short ${{ github.sha }})
+          echo "IMAGE_TAG=$calculatedSha" >> $GITHUB_ENV
+
+      # Connect to VPS by SSH, pull latest image and run container
       - name: Connect to VPS by SSH, pull latest image and run container
         uses: appleboy/ssh-action@master
         with:
