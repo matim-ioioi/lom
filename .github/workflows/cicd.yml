@@ -20,12 +20,6 @@ jobs:
     steps:
       # Initialization
 
-      # Set short SHA
-      - name: Set short git commit SHA
-        id: vars
-        run: |
-          calculatedSha=$(git rev-parse --short ${{ github.sha }})
-          echo "IMAGE_TAG=$calculatedSha" >> $GITHUB_ENV
       # Checkout
       - uses: actions/checkout@v4
       # Using node
@@ -33,6 +27,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20.11
+      # Set short SHA
+      - name: Set short git commit SHA
+        id: vars
+        run: |
+          calculatedSha=$(git rev-parse --short ${{ github.sha }})
+          echo "IMAGE_TAG=$calculatedSha" >> $GITHUB_ENV
 
       # Build app
 
