@@ -1,98 +1,83 @@
 <template>
   <section>
-    <el-row>
-      <el-col>
-        <v-container direction="vertical" :gap="32">
-          <div>
-            <v-container :gap="16">
-              <div>
-                <blade-duo-view :combo-dmg="+comboDmg" :boss-dmg="+bossDmg" extended />
-              </div>
-              <div>
-                <v-stats-input v-model="comboDmg" :placeholder="BladeDuo.RU_LANG_MAP.comboDmg" />
-                <v-stats-input v-model="bossDmg" :placeholder="BladeDuo.RU_LANG_MAP.bossDmg" />
-              </div>
-            </v-container>
-          </div>
-          <div>
-            <v-container :gap="16">
-              <div>
-                <bloodstained-blade-view :global-atk="+globalAtk" :healing-rate="+healingRate" extended />
-              </div>
-              <div>
-                <v-stats-input v-model="globalAtk" :placeholder="BloodstainedBlade.RU_LANG_MAP.globalAtk" />
-                <v-stats-input v-model="healingRate" :placeholder="BloodstainedBlade.RU_LANG_MAP.healingRate" />
-              </div>
-            </v-container>
-          </div>
-          <div>
-            <v-container :gap="16">
-              <div>
-                <excellent-companion-view :counter-dmg="+counterDmg" :pal-dmg="+palDmg" extended />
-              </div>
-              <div>
-                <v-stats-input v-model="counterDmg" :placeholder="ExcellentCompanion.RU_LANG_MAP.counterDmg" />
-                <v-stats-input v-model="palDmg" :placeholder="ExcellentCompanion.RU_LANG_MAP.palDmg" />
-              </div>
-            </v-container>
-          </div>
-          <div>
-            <v-container :gap="16">
-              <div>
-                <eye-of-the-abyss-view :crit-dmg-bonus="+critDmgBonus" :skill-crit-dmg="+skillCritDmg" extended />
-              </div>
-              <div>
-                <v-stats-input v-model="critDmgBonus" :placeholder="EyeOfTheAbyss.RU_LANG_MAP.critDmgBonus" />
-                <v-stats-input v-model="skillCritDmg" :placeholder="EyeOfTheAbyss.RU_LANG_MAP.skillCritDmg" />
-              </div>
-            </v-container>
-          </div>
-          <div>
-            <v-container :gap="16">
-              <div>
-                <forgiving-horns-view :global-def="+globalDef" :boss-dmg-res="+bossDmgRes" extended />
-              </div>
-              <div>
-                <v-stats-input v-model="globalDef" :placeholder="ForgivingHorns.RU_LANG_MAP.globalDef" />
-                <v-stats-input v-model="bossDmgRes" :placeholder="ForgivingHorns.RU_LANG_MAP.bossDmgRes" />
-              </div>
-            </v-container>
-          </div>
-          <div>
-            <v-container :gap="16">
-              <div>
-                <guardian-star-view :crit-res-bonus="+critResBonus" :pal-crit-rate="+palCritRate" :pal-crit-dmg="+palCritDmg" extended />
-              </div>
-              <div>
-                <v-stats-input v-model="critResBonus" :placeholder="GuardianStar.RU_LANG_MAP.critResBonus" />
-                <v-stats-input v-model="palCritRate" :placeholder="GuardianStar.RU_LANG_MAP.palCritRate" />
-                <v-stats-input v-model="palCritDmg" :placeholder="GuardianStar.RU_LANG_MAP.palCritDmg" />
-              </div>
-            </v-container>
-          </div>
-          <div>
-            <v-container :gap="16">
-              <div>
-                <immortal-spirit-view :global-h-p="+globalHP" :regen-bonus-h-p="+regenBonusHP" extended />
-              </div>
-              <div>
-                <v-stats-input v-model="globalHP" :placeholder="ImmortalSpirit.RU_LANG_MAP.globalHP" />
-                <v-stats-input v-model="regenBonusHP" :placeholder="ImmortalSpirit.RU_LANG_MAP.regenBonusHP" />
-              </div>
-            </v-container>
-          </div>
-          <div>
-            <v-container :gap="16">
-              <div>
-                <wildfire-piercer-view :basic-atk-dmg="+basicAtkDmg" :skill-dmg="+skillDmg" extended />
-              </div>
-              <div>
-                <v-stats-input v-model="basicAtkDmg" :placeholder="WildfirePiercer.RU_LANG_MAP.basicAtkDmg" />
-                <v-stats-input v-model="skillDmg" :placeholder="WildfirePiercer.RU_LANG_MAP.skillDmg" />
-              </div>
-            </v-container>
-          </div>
-        </v-container>
+    <el-row :gutter="32">
+      <el-col :sm="24" :md="12">
+        <blade-duo-view :combo-dmg="+comboDmg" :boss-dmg="+bossDmg" extended />
+      </el-col>
+      <el-col :sm="24" :md="12">
+        <v-stats-input v-model="comboDmg" :placeholder="BladeDuo.RU_LANG_MAP.comboDmg" :disabled="!!+bossDmg" />
+        <v-stats-input v-model="bossDmg" :placeholder="BladeDuo.RU_LANG_MAP.bossDmg" :disabled="!!+comboDmg" />
+      </el-col>
+    </el-row>
+
+    <el-row :gutter="32" class="mt-32">
+      <el-col :sm="24" :md="12">
+        <bloodstained-blade-view :global-atk="+globalAtk" :healing-rate="+healingRate" extended />
+      </el-col>
+      <el-col :sm="24" :md="12">
+        <v-stats-input v-model="globalAtk" :placeholder="BloodstainedBlade.RU_LANG_MAP.globalAtk" :disabled="!!+healingRate" />
+        <v-stats-input v-model="healingRate" :placeholder="BloodstainedBlade.RU_LANG_MAP.healingRate" :disabled="!!+globalAtk" />
+      </el-col>
+    </el-row>
+
+    <el-row :gutter="32" class="mt-32">
+      <el-col :sm="24" :md="12">
+        <excellent-companion-view :counter-dmg="+counterDmg" :pal-dmg="+palDmg" extended />
+      </el-col>
+      <el-col :sm="24" :md="12">
+        <v-stats-input v-model="counterDmg" :placeholder="ExcellentCompanion.RU_LANG_MAP.counterDmg" :disabled="!!+palDmg" />
+        <v-stats-input v-model="palDmg" :placeholder="ExcellentCompanion.RU_LANG_MAP.palDmg" :disabled="!!+counterDmg" />
+      </el-col>
+    </el-row>
+
+    <el-row :gutter="32" class="mt-32">
+      <el-col :sm="24" :md="12">
+        <eye-of-the-abyss-view :crit-dmg-bonus="+critDmgBonus" :skill-crit-dmg="+skillCritDmg" extended />
+      </el-col>
+      <el-col :sm="24" :md="12">
+        <v-stats-input v-model="critDmgBonus" :placeholder="EyeOfTheAbyss.RU_LANG_MAP.critDmgBonus" :disabled="!!+skillCritDmg" />
+        <v-stats-input v-model="skillCritDmg" :placeholder="EyeOfTheAbyss.RU_LANG_MAP.skillCritDmg" :disabled="!!+critDmgBonus" />
+      </el-col>
+    </el-row>
+
+    <el-row :gutter="32" class="mt-32">
+      <el-col :sm="24" :md="12">
+        <forgiving-horns-view :global-def="+globalDef" :boss-dmg-res="+bossDmgRes" extended />
+      </el-col>
+      <el-col :sm="24" :md="12">
+        <v-stats-input v-model="globalDef" :placeholder="ForgivingHorns.RU_LANG_MAP.globalDef" :disabled="!!+bossDmgRes" />
+        <v-stats-input v-model="bossDmgRes" :placeholder="ForgivingHorns.RU_LANG_MAP.bossDmgRes" :disabled="!!+globalDef" />
+      </el-col>
+    </el-row>
+
+    <el-row :gutter="32" class="mt-32">
+      <el-col :sm="24" :md="12">
+        <guardian-star-view :crit-res-bonus="+critResBonus" :pal-crit-rate="+palCritRate" :pal-crit-dmg="+palCritDmg" extended />
+      </el-col>
+      <el-col :sm="24" :md="12">
+        <v-stats-input v-model="critResBonus" :placeholder="GuardianStar.RU_LANG_MAP.critResBonus" :disabled="!!+palCritRate || !!+palCritDmg" />
+        <v-stats-input v-model="palCritRate" :placeholder="GuardianStar.RU_LANG_MAP.palCritRate" :disabled="!!+critResBonus || !!+palCritDmg" />
+        <v-stats-input v-model="palCritDmg" :placeholder="GuardianStar.RU_LANG_MAP.palCritDmg" :disabled="!!+critResBonus || !!+palCritRate" />
+      </el-col>
+    </el-row>
+
+    <el-row :gutter="32" class="mt-32">
+      <el-col :sm="24" :md="12">
+        <immortal-spirit-view :global-h-p="+globalHP" :regen-bonus-h-p="+regenBonusHP" extended />
+      </el-col>
+      <el-col :sm="24" :md="12">
+        <v-stats-input v-model="globalHP" :placeholder="ImmortalSpirit.RU_LANG_MAP.globalHP" :disabled="!!+regenBonusHP" />
+        <v-stats-input v-model="regenBonusHP" :placeholder="ImmortalSpirit.RU_LANG_MAP.regenBonusHP" :disabled="!!+globalHP" />
+      </el-col>
+    </el-row>
+
+    <el-row :gutter="32" class="mt-32">
+      <el-col :sm="24" :md="12">
+        <wildfire-piercer-view :basic-atk-dmg="+basicAtkDmg" :skill-dmg="+skillDmg" extended />
+      </el-col>
+      <el-col :sm="24" :md="12">
+        <v-stats-input v-model="basicAtkDmg" :placeholder="WildfirePiercer.RU_LANG_MAP.basicAtkDmg" :disabled="!!+skillDmg" />
+        <v-stats-input v-model="skillDmg" :placeholder="WildfirePiercer.RU_LANG_MAP.skillDmg" :disabled="!!+basicAtkDmg" />
       </el-col>
     </el-row>
   </section>
@@ -100,7 +85,6 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import VContainer from '@/components/common/VContainer.vue'
 import VStatsInput from '@/components/common/VStatsInput.vue'
 import { BladeDuo } from '@/entities/souls/BladeDuo/BladeDuo'
 import BladeDuoView from '@/entities/souls/BladeDuo/ui/BladeDuoView.vue'

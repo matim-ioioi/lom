@@ -15,8 +15,6 @@ export abstract class Soul {
     let currentStat = initialStat
     let level = 1
 
-    console.log(level, currentStat)
-
     while (currentStat < finalStat) {
       const normalizedLevel = ((level - 1) % maxLevel) + 1
       currentStat += levelMap[normalizedLevel]

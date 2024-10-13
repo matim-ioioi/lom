@@ -38,7 +38,7 @@ const props = defineProps<{
 
 <style scoped lang="scss">
 .soul {
-  width: 350px;
+  min-width: 350px;
   display: flex;
   text-shadow:
     1px 0 #000,
