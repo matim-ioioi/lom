@@ -1,5 +1,6 @@
 <template>
   <section class="lucky-spinner">
+    <v-server-week />
     <el-table :data="luckySpinnerData" stripe :show-header="false" :row-class-name="isRowPredicted">
       <el-table-column prop="week" width="120">
         <template #default="{ row }">
@@ -20,7 +21,7 @@
                 <img :src="scope.row.image" :alt="scope.row.name" width="80" height="80" />
               </template>
             </el-table-column>
-            <el-table-column prop="name">
+            <el-table-column prop="name" width="200">
               <template #default="scope">
                 <p>{{ scope.row.name }}</p>
               </template>
@@ -45,6 +46,7 @@
 <script setup lang="ts">
 import { QuestionFilled } from '@element-plus/icons-vue'
 import { reactive } from 'vue'
+import VServerWeek from '@/components/common/VServerWeek.vue'
 
 interface LuckySpinnerDataItem {
   week: number
