@@ -68,6 +68,10 @@ jobs:
     name: Deploy to VPS
     runs-on: ubuntu-latest
     steps:
+      # Initialization
+
+      # Checkout
+      - uses: actions/checkout@v4
       # Set short SHA
       - name: Set short git commit SHA
         id: vars
