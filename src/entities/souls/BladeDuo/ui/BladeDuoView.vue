@@ -1,23 +1,17 @@
 <template>
-  <div class="blade-duo-view">
-    <img :src="BladeDuo.image" :alt="BladeDuo.name" width="100" height="100" />
-    <div v-if="calculatedLevel" class="blade-duo-view__level">
-      <span>lv. {{ calculatedLevel }}</span>
-    </div>
-    <div v-if="calculatedStats" class="blade-duo-view__stats">
-      <span v-for="([statName, stat], index) in Object.entries(calculatedStats)" :key="`blade-duo-${stat}-${index}`"> {{ statName }} - {{ stat }} </span>
-    </div>
-  </div>
+  <soul-view :image="BladeDuo.image" :name="BladeDuo.RU_LANG_MAP.name" :level="calculatedLevel" :stats="calculatedStats" :extended="props.extended" />
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
 import { BladeDuo } from '@/entities/souls/BladeDuo/BladeDuo'
+import SoulView from '@/entities/souls/Soul/ui/SoulView.vue'
 
 const props = defineProps<{
   level?: number
   comboDmg?: number
   bossDmg?: number
+  extended?: boolean
 }>()
 
 const calculatedLevel = computed(() => {
@@ -37,34 +31,14 @@ const calculatedLevel = computed(() => {
 })
 
 const calculatedStats = computed(() => {
-  return new BladeDuo(calculatedLevel.value ?? 1).stats
+  if (!props.extended) {
+    return null
+  }
+
+  return Object.entries(new BladeDuo(calculatedLevel.value ?? 1).stats).map(([key, value]) => ({
+    name: BladeDuo.RU_LANG_MAP[key as keyof typeof BladeDuo.RU_LANG_MAP],
+    value,
+    unit: '%',
+  }))
 })
 </script>
-
-<style scoped lang="scss">
-.blade-duo-view {
-  position: relative;
-
-  &__level {
-    color: #fff;
-    text-shadow:
-      2px 0 #000000,
-      -2px 0 #000000,
-      0 2px #000000,
-      0 -2px #000000,
-      1px 1px #000000,
-      -1px -1px #000000,
-      1px -1px #000000,
-      -1px 1px #000000;
-    left: 0;
-    font-weight: bold;
-    position: absolute;
-    top: 0;
-    transform: translate(calc(50px - 50%), calc(100px - 100%));
-  }
-
-  &__stats {
-    color: #fff;
-  }
-}
-</style>

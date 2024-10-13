@@ -13,17 +13,18 @@ export abstract class Soul {
   protected static _calculateLevelByStat(finalStat: number, initialStat: number, levelMap: Record<number, number>): number {
     const maxLevel = Number(Object.keys(levelMap).at(-1))
     let currentStat = initialStat
-    let level = 2
+    let level = 1
+
+    console.log(level, currentStat)
 
     while (currentStat < finalStat) {
       const normalizedLevel = ((level - 1) % maxLevel) + 1
       currentStat += levelMap[normalizedLevel]
+      level++
 
       if (currentStat >= finalStat) {
         return level
       }
-
-      level++
     }
 
     return level

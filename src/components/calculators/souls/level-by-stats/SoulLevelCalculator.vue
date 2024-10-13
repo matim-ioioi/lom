@@ -1,128 +1,139 @@
 <template>
   <section>
-    <h2>Введите статы для рассчёта</h2>
-    <blade-duo-view :combo-dmg="1779" />
     <el-row>
       <el-col>
-        <v-stats-input v-model="baseAttack" placeholder="Конечная атака, ед." />
-        <v-stats-input v-model="baseAttackMultiplier" placeholder="Мультипликатор обычной атаки, %" />
-        <v-stats-input v-model="critMultiplier" placeholder="Мультипликатор крита, %" />
-        <v-stats-input v-model="comboMultiplier" placeholder="Мультипликатор комбоатаки, %" />
-        <v-stats-input v-model="critRate" placeholder="Шанс крита, %" />
-        <v-stats-input v-model="comboRate" placeholder="Шанс комбоатаки, %" />
-        <v-stats-input v-model="attackSpeed" placeholder="Скорость атаки, ед." />
-      </el-col>
-    </el-row>
-    <h2>Результаты</h2>
-    <el-row>
-      <el-col>
-        <v-stats-input v-model="result.attackDamage" placeholder="Урон с обычной атаки" disabled />
-        <v-stats-input v-model="result.criticalDamage" placeholder="Урон с крита" disabled />
-        <v-stats-input v-model="result.comboDamage" placeholder="Урон с комбоатаки" disabled />
-        <v-stats-input v-model="result.criticalComboDamage" placeholder="Урон с крита+комбоатаки" disabled />
-        <v-stats-input
-          v-model="result.attackDPS"
-          placeholder="Средний урон в секунду (не арбалетчик)"
-          disabled
-          hint="Средний урон в секунду рассчитывается с учётом всех мультипликаторов, которые на него влияют<br />
-                (урон атк, крит урон, комбо урон, криткомбо урон, крит шанс, комбо шанс, криткомбо шанс, ск. атаки)"
-        />
-        <v-stats-input
-          v-model="result.attackDPSArrowgod"
-          placeholder="Средний урон в секунду (арбалетчик БЕЗ пробуды)"
-          disabled
-          hint="Средний урон в секунду рассчитывается с учётом всех мультипликаторов, которые на него влияют<br />
-                (урон атк, крит урон, комбо урон, криткомбо урон, крит шанс, комбо шанс, криткомбо шанс, ск. атаки)"
-        />
-        <v-stats-input
-          v-model="result.attackDPSArrowgodAwaked"
-          placeholder="Средний урон в секунду (арбалетчик С пробудой)"
-          disabled
-          hint="Средний урон в секунду рассчитывается с учётом всех мультипликаторов, которые на него влияют<br />
-                (урон атк, крит урон, комбо урон, криткомбо урон, крит шанс, комбо шанс, криткомбо шанс, ск. атаки)"
-        />
+        <v-container direction="vertical" :gap="32">
+          <div>
+            <v-container :gap="16">
+              <div>
+                <blade-duo-view :combo-dmg="+comboDmg" :boss-dmg="+bossDmg" extended />
+              </div>
+              <div>
+                <v-stats-input v-model="comboDmg" :placeholder="BladeDuo.RU_LANG_MAP.comboDmg" />
+                <v-stats-input v-model="bossDmg" :placeholder="BladeDuo.RU_LANG_MAP.bossDmg" />
+              </div>
+            </v-container>
+          </div>
+          <div>
+            <v-container :gap="16">
+              <div>
+                <bloodstained-blade-view :global-atk="+globalAtk" :healing-rate="+healingRate" extended />
+              </div>
+              <div>
+                <v-stats-input v-model="globalAtk" :placeholder="BloodstainedBlade.RU_LANG_MAP.globalAtk" />
+                <v-stats-input v-model="healingRate" :placeholder="BloodstainedBlade.RU_LANG_MAP.healingRate" />
+              </div>
+            </v-container>
+          </div>
+          <div>
+            <v-container :gap="16">
+              <div>
+                <excellent-companion-view :counter-dmg="+counterDmg" :pal-dmg="+palDmg" extended />
+              </div>
+              <div>
+                <v-stats-input v-model="counterDmg" :placeholder="ExcellentCompanion.RU_LANG_MAP.counterDmg" />
+                <v-stats-input v-model="palDmg" :placeholder="ExcellentCompanion.RU_LANG_MAP.palDmg" />
+              </div>
+            </v-container>
+          </div>
+          <div>
+            <v-container :gap="16">
+              <div>
+                <eye-of-the-abyss-view :crit-dmg-bonus="+critDmgBonus" :skill-crit-dmg="+skillCritDmg" extended />
+              </div>
+              <div>
+                <v-stats-input v-model="critDmgBonus" :placeholder="EyeOfTheAbyss.RU_LANG_MAP.critDmgBonus" />
+                <v-stats-input v-model="skillCritDmg" :placeholder="EyeOfTheAbyss.RU_LANG_MAP.skillCritDmg" />
+              </div>
+            </v-container>
+          </div>
+          <div>
+            <v-container :gap="16">
+              <div>
+                <forgiving-horns-view :global-def="+globalDef" :boss-dmg-res="+bossDmgRes" extended />
+              </div>
+              <div>
+                <v-stats-input v-model="globalDef" :placeholder="ForgivingHorns.RU_LANG_MAP.globalDef" />
+                <v-stats-input v-model="bossDmgRes" :placeholder="ForgivingHorns.RU_LANG_MAP.bossDmgRes" />
+              </div>
+            </v-container>
+          </div>
+          <div>
+            <v-container :gap="16">
+              <div>
+                <guardian-star-view :crit-res-bonus="+critResBonus" :pal-crit-rate="+palCritRate" :pal-crit-dmg="+palCritDmg" extended />
+              </div>
+              <div>
+                <v-stats-input v-model="critResBonus" :placeholder="GuardianStar.RU_LANG_MAP.critResBonus" />
+                <v-stats-input v-model="palCritRate" :placeholder="GuardianStar.RU_LANG_MAP.palCritRate" />
+                <v-stats-input v-model="palCritDmg" :placeholder="GuardianStar.RU_LANG_MAP.palCritDmg" />
+              </div>
+            </v-container>
+          </div>
+          <div>
+            <v-container :gap="16">
+              <div>
+                <immortal-spirit-view :global-h-p="+globalHP" :regen-bonus-h-p="+regenBonusHP" extended />
+              </div>
+              <div>
+                <v-stats-input v-model="globalHP" :placeholder="ImmortalSpirit.RU_LANG_MAP.globalHP" />
+                <v-stats-input v-model="regenBonusHP" :placeholder="ImmortalSpirit.RU_LANG_MAP.regenBonusHP" />
+              </div>
+            </v-container>
+          </div>
+          <div>
+            <v-container :gap="16">
+              <div>
+                <wildfire-piercer-view :basic-atk-dmg="+basicAtkDmg" :skill-dmg="+skillDmg" extended />
+              </div>
+              <div>
+                <v-stats-input v-model="basicAtkDmg" :placeholder="WildfirePiercer.RU_LANG_MAP.basicAtkDmg" />
+                <v-stats-input v-model="skillDmg" :placeholder="WildfirePiercer.RU_LANG_MAP.skillDmg" />
+              </div>
+            </v-container>
+          </div>
+        </v-container>
       </el-col>
     </el-row>
   </section>
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { ref } from 'vue'
+import VContainer from '@/components/common/VContainer.vue'
 import VStatsInput from '@/components/common/VStatsInput.vue'
-import { useHeroStats } from '@/composable/useHeroStats'
+import { BladeDuo } from '@/entities/souls/BladeDuo/BladeDuo'
 import BladeDuoView from '@/entities/souls/BladeDuo/ui/BladeDuoView.vue'
-import { calculateDPS } from '@/utils/calculateDPS'
-import { fromAbbreviatedNumber } from '@/utils/fromAbbreviatedNumber'
-import { toAbbreviatedNumber } from '@/utils/toAbbreviatedNumber'
+import { BloodstainedBlade } from '@/entities/souls/BloodstainedBlade/BloodstainedBlade'
+import BloodstainedBladeView from '@/entities/souls/BloodstainedBlade/ui/BloodstainedBladeView.vue'
+import { ExcellentCompanion } from '@/entities/souls/ExcellentCompanion/ExcellentCompanion'
+import ExcellentCompanionView from '@/entities/souls/ExcellentCompanion/ui/ExcellentCompanionView.vue'
+import { EyeOfTheAbyss } from '@/entities/souls/EyeOfTheAbyss/EyeOfTheAbyss'
+import EyeOfTheAbyssView from '@/entities/souls/EyeOfTheAbyss/ui/EyeOfTheAbyssView.vue'
+import { ForgivingHorns } from '@/entities/souls/ForgivingHorns/ForgivingHorns'
+import ForgivingHornsView from '@/entities/souls/ForgivingHorns/ui/ForgivingHornsView.vue'
+import { GuardianStar } from '@/entities/souls/GuardianStar/GuardianStar'
+import GuardianStarView from '@/entities/souls/GuardianStar/ui/GuardianStarView.vue'
+import { ImmortalSpirit } from '@/entities/souls/ImmortalSpirit/ImmortalSpirit'
+import ImmortalSpiritView from '@/entities/souls/ImmortalSpirit/ui/ImmortalSpiritView.vue'
+import { WildfirePiercer } from '@/entities/souls/WildfirePiercer/WildfirePiercer'
+import WildfirePiercerView from '@/entities/souls/WildfirePiercer/ui/WildfirePiercerView.vue'
 
-const { heroStats } = useHeroStats()
-
-const baseAttack = ref(heroStats.value.attack)
-const baseAttackMultiplier = ref(heroStats.value.baseAttackMultiplier)
-const critMultiplier = ref(heroStats.value.critMultiplier)
-const comboMultiplier = ref(heroStats.value.comboMultiplier)
-const critRate = ref(heroStats.value.critRate)
-const comboRate = ref(heroStats.value.comboRate)
-const attackSpeed = ref(heroStats.value.attackSpeed)
-
-const syncStats = () => {
-  baseAttack.value = heroStats.value.attack
-  baseAttackMultiplier.value = heroStats.value.baseAttackMultiplier
-  critMultiplier.value = heroStats.value.critMultiplier
-  comboMultiplier.value = heroStats.value.comboMultiplier
-  critRate.value = heroStats.value.critRate
-  comboRate.value = heroStats.value.comboRate
-  attackSpeed.value = heroStats.value.attackSpeed
-}
-
-const result = computed(() => {
-  const attackDamage = (+fromAbbreviatedNumber(baseAttack.value) * +fromAbbreviatedNumber(baseAttackMultiplier.value)) / 100
-  const criticalDamage = (attackDamage * +fromAbbreviatedNumber(critMultiplier.value)) / 100
-  const comboDamage = (attackDamage * +fromAbbreviatedNumber(comboMultiplier.value)) / 100
-
-  const criticalComboDamage = (criticalDamage * +fromAbbreviatedNumber(comboMultiplier.value)) / 100
-
-  const attackDPS = calculateDPS({
-    damage: attackDamage,
-    critRate: +fromAbbreviatedNumber(critRate.value),
-    critMultiplier: +fromAbbreviatedNumber(critMultiplier.value),
-    comboRate: +fromAbbreviatedNumber(comboRate.value),
-    comboMultiplier: +fromAbbreviatedNumber(comboMultiplier.value),
-    attackSpeed: +fromAbbreviatedNumber(attackSpeed.value),
-  })
-  const attackDPSArrowgod = calculateDPS({
-    damage: attackDamage,
-    critRate: +fromAbbreviatedNumber(critRate.value),
-    critMultiplier: +fromAbbreviatedNumber(critMultiplier.value),
-    comboRate: +fromAbbreviatedNumber(comboRate.value),
-    comboMultiplier: +fromAbbreviatedNumber(comboMultiplier.value),
-    attackSpeed: +fromAbbreviatedNumber(attackSpeed.value),
-    additionalNormalAttack: 2,
-    additionalComboAttack: 2,
-  })
-  const attackDPSArrowgodAwaked = calculateDPS({
-    damage: attackDamage,
-    critRate: +fromAbbreviatedNumber(critRate.value),
-    critMultiplier: +fromAbbreviatedNumber(critMultiplier.value),
-    comboRate: +fromAbbreviatedNumber(comboRate.value),
-    comboMultiplier: +fromAbbreviatedNumber(comboMultiplier.value),
-    attackSpeed: +fromAbbreviatedNumber(attackSpeed.value),
-    additionalNormalAttack: 2,
-    additionalComboAttack: 3,
-  })
-
-  return {
-    attackDamage: toAbbreviatedNumber(attackDamage),
-    criticalDamage: toAbbreviatedNumber(criticalDamage),
-    comboDamage: toAbbreviatedNumber(comboDamage),
-    criticalComboDamage: toAbbreviatedNumber(criticalComboDamage),
-    attackDPS: toAbbreviatedNumber(attackDPS),
-    attackDPSArrowgod: toAbbreviatedNumber(attackDPSArrowgod),
-    attackDPSArrowgodAwaked: toAbbreviatedNumber(attackDPSArrowgodAwaked),
-  }
-})
-
-onMounted(() => {
-  syncStats()
-})
+const comboDmg = ref('0')
+const bossDmg = ref('0')
+const globalAtk = ref('0')
+const healingRate = ref('0')
+const counterDmg = ref('0')
+const palDmg = ref('0')
+const critDmgBonus = ref('0')
+const skillCritDmg = ref('0')
+const globalDef = ref('0')
+const bossDmgRes = ref('0')
+const critResBonus = ref('0')
+const palCritRate = ref('0')
+const palCritDmg = ref('0')
+const globalHP = ref('0')
+const regenBonusHP = ref('0')
+const basicAtkDmg = ref('0')
+const skillDmg = ref('0')
 </script>

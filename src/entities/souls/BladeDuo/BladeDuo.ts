@@ -1,5 +1,5 @@
 import type { Stat } from '@/entities/stats/types'
-import { Soul } from '@/entities/souls/Soul'
+import { Soul } from '@/entities/souls/Soul/Soul'
 
 interface BladeDuoStat extends Stat {
   comboDmg: number
@@ -7,13 +7,15 @@ interface BladeDuoStat extends Stat {
 }
 
 export class BladeDuo extends Soul {
-  public static INITIAL_COMBO_DMG = 337.5
-  public static INITIAL_BOSS_DMG = 30.1
-
-  public static COMBO_DMG_STAT_TITLE_MAP = {
+  public static RU_LANG_MAP = {
+    name: 'Соединение двух мечей',
     comboDmg: 'Урон комбоатак',
     bossDmg: 'Урон боссам',
   }
+
+  public static INITIAL_COMBO_DMG = 337.5
+  public static INITIAL_BOSS_DMG = 30.1
+
   public static COMBO_DMG_LEVEL_MAP = {
     1: 30.7,
     2: 30.7,
@@ -73,6 +75,15 @@ export class BladeDuo extends Soul {
     super(level)
   }
 
+  private _calculateComboDmgStepByLevel() {
+    const stat = this._calculateStepByLevel(BladeDuo.INITIAL_COMBO_DMG, 2, this.level > 14 ? 14 : this.level, BladeDuo.COMBO_DMG_LEVEL_MAP)
+
+    return this._calculateStepByLevel(stat, 15, this.level, BladeDuo.COMBO_DMG_LEVEL_MAP)
+  }
+  private _calculateBossDmgStepByLevel() {
+    return this._calculateStepByLevel(BladeDuo.INITIAL_BOSS_DMG, 2, this.level, BladeDuo.BOSS_DMG_LEVEL_MAP)
+  }
+
   public static getLevelByComboDmg(finalStat: number) {
     return Soul._calculateLevelByStat(finalStat, BladeDuo.INITIAL_COMBO_DMG, BladeDuo.COMBO_DMG_LEVEL_MAP)
   }
@@ -80,27 +91,10 @@ export class BladeDuo extends Soul {
     return Soul._calculateLevelByStat(finalStat, BladeDuo.INITIAL_BOSS_DMG, BladeDuo.BOSS_DMG_LEVEL_MAP)
   }
 
-  private _calculateComboDmgStepByLevel() {
-    let stat = BladeDuo.INITIAL_COMBO_DMG
-
-    stat = this._calculateStepByLevel(stat, 2, 14, BladeDuo.COMBO_DMG_LEVEL_MAP)
-
-    stat = this._calculateStepByLevel(stat, 15, this.level, BladeDuo.COMBO_DMG_LEVEL_MAP)
-
-    return stat
-  }
-  private _calculateBossDmgStepByLevel() {
-    let stat = BladeDuo.INITIAL_BOSS_DMG
-
-    stat = this._calculateStepByLevel(stat, 2, this.level, BladeDuo.BOSS_DMG_LEVEL_MAP)
-
-    return stat
-  }
-
   public get stats(): BladeDuoStat {
     return {
-      comboDmg: this._calculateComboDmgStepByLevel(),
-      bossDmg: this._calculateBossDmgStepByLevel(),
+      comboDmg: +this._calculateComboDmgStepByLevel().toFixed(2),
+      bossDmg: +this._calculateBossDmgStepByLevel().toFixed(2),
     }
   }
 }
