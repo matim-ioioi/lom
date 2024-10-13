@@ -20,6 +20,12 @@ jobs:
     steps:
       # Initialization
 
+      # Set short SHA
+      - name: Set short git commit SHA
+        id: vars
+        run: |
+          calculatedSha=$(git rev-parse --short ${{ github.sha }})
+          echo "IMAGE_TAG=$calculatedSha" >> $GITHUB_ENV
       # Checkout
       - uses: actions/checkout@v4
       # Using node
@@ -49,12 +55,12 @@ jobs:
       # Build docker image
       - name: Build image
         id: build-image
-        run: docker buildx build --platform=linux/amd64 -f ./containers/Dockerfile -t "${{ env.IMAGE_NAME }}:latest" .
+        run: docker buildx build --platform=linux/amd64 -f ./containers/Dockerfile -t "${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}" .
       # Push docker image
       - name: Push image to docker hub
         if: github.event_name != 'pull_request'
         id: push-image
-        run: docker push "${{ env.IMAGE_NAME }}:latest"
+        run: docker push "${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}"
 
   deploy:
     if: github.event_name != 'pull_request'
@@ -70,7 +76,7 @@ jobs:
           key: ${{ secrets.PRIVATE_KEY }}
           script: |
             docker login -u ${{ secrets.DOCKERHUB_LOGIN }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
-            docker pull "${{ env.IMAGE_NAME }}:latest"
+            docker pull "${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}"
             docker stop lomguide
             docker remove lomguide
-            docker run --name lomguide -p 127.0.0.1:3000:8080/tcp -d "matimioioi/lom:latest"
+            docker run --name lomguide -p 127.0.0.1:3000:8080/tcp -d "${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}"
