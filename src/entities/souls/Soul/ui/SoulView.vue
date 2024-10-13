@@ -40,37 +40,37 @@ const props = defineProps<{
 .soul {
   width: 350px;
   display: flex;
-  color: #fff;
   text-shadow:
-    1px 0 #000000,
-    -1px 0 #000000,
-    0 1px #000000,
-    0 -1px #000000,
-    1px 1px #000000,
-    -1px -1px #000000,
-    1px -1px #000000,
-    -1px 1px #000000;
+    1px 0 #000,
+    -1px 0 #000,
+    0 1px #000,
+    0 -1px #000,
+    1px 1px #000,
+    -1px -1px #000,
+    1px -1px #000,
+    -1px 1px #000;
+  color: #fff;
 
   &__image {
     position: relative;
   }
 
   &__level {
-    left: 0;
-    font-weight: bold;
-    position: absolute;
     top: 0;
+    left: 0;
+    position: absolute;
+    font-weight: 700;
     transform: translate(calc(50px - 50%), calc(100px - 100%));
   }
 
   &__info {
-    margin-left: 8px;
     flex-grow: 1;
+    margin-left: 8px;
   }
 
   &__name {
-    font-weight: bold;
     border-bottom: 2px dotted #fff;
+    font-weight: 700;
   }
 
   &-stats {
@@ -82,7 +82,7 @@ const props = defineProps<{
     }
 
     &__value {
-      font-weight: bold;
+      font-weight: 700;
     }
   }
 }
