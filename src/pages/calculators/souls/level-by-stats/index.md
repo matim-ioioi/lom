@@ -1,5 +1,5 @@
 <script setup>
-import SoulLevelCalculator from '../../../../components/calculators/souls/level-by-stats/SoulLevelCalculator.vue'
+import SoulsLevelByStatsCalculator from '../../../../components/calculators/souls/level-by-stats/SoulsLevelByStatsCalculator.vue'
 </script>
 
 # Калькулятор для расчёта уровня души в зависимости от статов
@@ -17,4 +17,4 @@ import SoulLevelCalculator from '../../../../components/calculators/souls/level-
 Для каждой из душ можно одновременно ввести только **ОДИН ИЗ АТРИБУТОВ**
 :::
 
-<SoulLevelCalculator />
+<SoulsLevelByStatsCalculator />

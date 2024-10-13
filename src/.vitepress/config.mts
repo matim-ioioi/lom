@@ -25,11 +25,17 @@ export default defineConfig({
           },
           {
             text: 'Души',
-            items: [{ text: 'Расчёт уровня души исходя из статов', link: '/pages/calculators/souls/level-by-stats' }],
+            items: [
+              { text: 'Расчёт УРОВНЯ души по статам', link: '/pages/calculators/souls/level-by-stats' },
+              { text: 'Расчёт СТАТОВ души по уровню', link: '/pages/calculators/souls/stats-by-level' },
+            ],
           },
           {
             text: 'Печати пробуждения',
-            items: [{ text: 'Расчёт уровня печати пробуждения исходя из статов', link: '/pages/calculators/awakening/level-by-stats' }],
+            items: [
+              { text: 'Расчёт УРОВНЯ печати пробуждения по статам', link: '/pages/calculators/awakening/level-by-stats' },
+              { text: 'Расчёт СТАТОВ печати пробуждения по уровню', link: '/pages/calculators/awakening/stats-by-level' },
+            ],
           },
           {
             text: 'Летающие питомцы',
