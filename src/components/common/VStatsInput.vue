@@ -2,7 +2,7 @@
   <client-only>
     <div>
       <el-text v-if="screen.isXs" type="info">{{ props.placeholder }}</el-text>
-      <el-input v-model="model" :type="'text'" :placeholder="props.placeholder" :disabled="props.disabled ?? ''">
+      <el-input v-model="model" v-maska="props.maska === 'float' ? floatMaska : intMaska" :type="'text'" :placeholder="props.placeholder" :disabled="props.disabled ?? ''">
         <template v-if="!screen.isXs" #prepend>{{ props.placeholder }}</template>
         <template #append><v-copy :text="model" /></template>
         <template v-if="hint" #suffix>
@@ -18,17 +18,37 @@
 </template>
 
 <script setup lang="ts">
+import type { MaskOptions } from 'maska'
 import { QuestionFilled } from '@element-plus/icons-vue'
+import { vMaska } from 'maska/vue'
 import VCopy from '@/components/common/VCopy.vue'
 import { useScreen } from '@/composable/useScreen'
 
 const screen = useScreen()
 
-const props = defineProps<{
-  placeholder: string
-  hint?: string
-  disabled?: boolean
-}>()
+const props = withDefaults(
+  defineProps<{
+    placeholder: string
+    hint?: string
+    disabled?: boolean
+    maska?: 'int' | 'float'
+  }>(),
+  { maska: 'float' }
+)
+
+const floatMaska: MaskOptions = {
+  mask: '0.99',
+  tokens: {
+    0: { pattern: /[0-9]/, multiple: true },
+    9: { pattern: /[0-9]/, optional: true, multiple: true },
+  },
+}
+const intMaska: MaskOptions = {
+  mask: '0',
+  tokens: {
+    0: { pattern: /[0-9]/, multiple: true },
+  },
+}
 
 const model = defineModel<string>({ required: true })
 </script>
