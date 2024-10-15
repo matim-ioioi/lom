@@ -5,7 +5,7 @@
         <blade-duo-view :level="+bladeDuoLevel" extended />
       </el-col>
       <el-col :sm="24" :md="12">
-        <v-stats-input v-model="bladeDuoLevel" placeholder="Уровень" maska="int" />
+        <v-stats-input v-model="bladeDuoLevel" placeholder="Уровень" type="level" />
       </el-col>
     </el-row>
 
@@ -14,7 +14,7 @@
         <bloodstained-blade-view :level="+bloodstainedBladeLevel" extended />
       </el-col>
       <el-col :sm="24" :md="12">
-        <v-stats-input v-model="bloodstainedBladeLevel" placeholder="Уровень" maska="int" />
+        <v-stats-input v-model="bloodstainedBladeLevel" placeholder="Уровень" type="level" />
       </el-col>
     </el-row>
 
@@ -23,7 +23,7 @@
         <excellent-companion-view :level="+excellentCompanionLevel" extended />
       </el-col>
       <el-col :sm="24" :md="12">
-        <v-stats-input v-model="excellentCompanionLevel" placeholder="Уровень" maska="int" />
+        <v-stats-input v-model="excellentCompanionLevel" placeholder="Уровень" type="level" />
       </el-col>
     </el-row>
 
@@ -32,7 +32,7 @@
         <eye-of-the-abyss-view :level="+eyeOfTheAbyssLevel" extended />
       </el-col>
       <el-col :sm="24" :md="12">
-        <v-stats-input v-model="eyeOfTheAbyssLevel" placeholder="Уровень" maska="int" />
+        <v-stats-input v-model="eyeOfTheAbyssLevel" placeholder="Уровень" type="level" />
       </el-col>
     </el-row>
 
@@ -41,7 +41,7 @@
         <forgiving-horns-view :level="+forgivingHornsLevel" extended />
       </el-col>
       <el-col :sm="24" :md="12">
-        <v-stats-input v-model="forgivingHornsLevel" placeholder="Уровень" maska="int" />
+        <v-stats-input v-model="forgivingHornsLevel" placeholder="Уровень" type="level" />
       </el-col>
     </el-row>
 
@@ -50,7 +50,7 @@
         <guardian-star-view :level="+guardianStarLevel" extended />
       </el-col>
       <el-col :sm="24" :md="12">
-        <v-stats-input v-model="guardianStarLevel" placeholder="Уровень" maska="int" />
+        <v-stats-input v-model="guardianStarLevel" placeholder="Уровень" type="level" />
       </el-col>
     </el-row>
 
@@ -59,7 +59,7 @@
         <immortal-spirit-view :level="+immortalSpiritLevel" extended />
       </el-col>
       <el-col :sm="24" :md="12">
-        <v-stats-input v-model="immortalSpiritLevel" placeholder="Уровень" maska="int" />
+        <v-stats-input v-model="immortalSpiritLevel" placeholder="Уровень" type="level" />
       </el-col>
     </el-row>
 
@@ -68,7 +68,7 @@
         <wildfire-piercer-view :level="+wildfirePiercerLevel" extended />
       </el-col>
       <el-col :sm="24" :md="12">
-        <v-stats-input v-model="wildfirePiercerLevel" placeholder="Уровень" maska="int" />
+        <v-stats-input v-model="wildfirePiercerLevel" placeholder="Уровень" type="level" />
       </el-col>
     </el-row>
   </section>

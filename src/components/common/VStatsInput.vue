@@ -2,7 +2,7 @@
   <client-only>
     <div>
       <el-text v-if="screen.isXs" type="info">{{ props.placeholder }}</el-text>
-      <el-input v-model="model" v-maska="props.maska === 'float' ? floatMaska : intMaska" :type="'text'" :placeholder="props.placeholder" :disabled="props.disabled ?? ''">
+      <el-input v-model="model" v-maska="props.type === 'stat' ? statMaska : levelMaska" :type="'text'" :placeholder="props.placeholder" :disabled="props.disabled ?? ''">
         <template v-if="!screen.isXs" #prepend>{{ props.placeholder }}</template>
         <template #append><v-copy :text="model" /></template>
         <template v-if="hint" #suffix>
@@ -31,19 +31,20 @@ const props = withDefaults(
     placeholder: string
     hint?: string
     disabled?: boolean
-    maska?: 'int' | 'float'
+    type?: 'level' | 'stat'
   }>(),
-  { maska: 'float' }
+  { type: 'stat' }
 )
 
-const floatMaska: MaskOptions = {
-  mask: '0.99',
+const statMaska: MaskOptions = {
+  mask: '0.9W',
   tokens: {
     0: { pattern: /[0-9]/, multiple: true },
     9: { pattern: /[0-9]/, optional: true, multiple: true },
+    W: { pattern: /[KMBTQPE]/, optional: true },
   },
 }
-const intMaska: MaskOptions = {
+const levelMaska: MaskOptions = {
   mask: '0',
   tokens: {
     0: { pattern: /[0-9]/, multiple: true },
