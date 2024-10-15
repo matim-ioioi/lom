@@ -37,9 +37,10 @@ const props = withDefaults(
 )
 
 const statMaska: MaskOptions = {
-  mask: '0.9W',
+  mask: ['0W', '0.9W'],
   tokens: {
     0: { pattern: /[0-9]/, multiple: true },
+    '.': { pattern: /\./, optional: true },
     9: { pattern: /[0-9]/, optional: true, multiple: true },
     W: { pattern: /[KMBTQPE]/, optional: true },
   },
