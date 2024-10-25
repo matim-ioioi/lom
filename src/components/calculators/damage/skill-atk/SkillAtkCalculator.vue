@@ -47,10 +47,10 @@ const syncStats = () => {
 }
 
 const result = computed(() => {
-  const skillDamage = (+fromAbbreviatedNumber(baseAttack.value) * +fromAbbreviatedNumber(skillCoefficient.value)) / 100
-  const criticalSkillDamage = (skillDamage * +fromAbbreviatedNumber(criticalSkillCoefficient.value)) / 100
-  const activeSkillDamage = (skillDamage * +fromAbbreviatedNumber(activeSkillCoefficient.value)) / 100
-  const criticalActiveSkillDamage = (activeSkillDamage * +fromAbbreviatedNumber(criticalSkillCoefficient.value)) / 100
+  const skillDamage = (fromAbbreviatedNumber(baseAttack.value) * fromAbbreviatedNumber(skillCoefficient.value)) / 100
+  const criticalSkillDamage = (skillDamage * fromAbbreviatedNumber(criticalSkillCoefficient.value)) / 100
+  const activeSkillDamage = (skillDamage * fromAbbreviatedNumber(activeSkillCoefficient.value)) / 100
+  const criticalActiveSkillDamage = (activeSkillDamage * fromAbbreviatedNumber(criticalSkillCoefficient.value)) / 100
 
   return {
     skillDamage: toAbbreviatedNumber(skillDamage),

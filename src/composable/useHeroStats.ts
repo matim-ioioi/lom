@@ -1,6 +1,315 @@
 import { ElNotification } from 'element-plus'
 import { computed, onMounted, reactive } from 'vue'
 
+const DEFAULT_ADVANCED_HERO_STATS = {
+  hp: {
+    final: '0',
+    stats: {
+      total: {
+        initial: '0',
+        equipment: '0',
+        adventure: '0',
+        enchant: '0',
+        avian: '0',
+      },
+      base: {
+        pal: '0',
+        skill: '0',
+        tech: '0',
+        relic: '0',
+        mount: '0',
+        artifact: '0',
+        parking: '0',
+        accessory: '0',
+        ring: '0',
+      },
+      global: {
+        mount: '0',
+        soul: '0',
+        awakeningSeal: '0',
+        costume: '0',
+        accessory: '0',
+        ship: '0',
+        enchant: '0',
+      },
+    },
+  },
+  atk: {
+    final: '0',
+    stats: {
+      total: {
+        initial: '0',
+        equipment: '0',
+        adventure: '0',
+        enchant: '0',
+        avian: '0',
+      },
+      base: {
+        pal: '0',
+        skill: '0',
+        tech: '0',
+        relic: '0',
+        mount: '0',
+        artifact: '0',
+        parking: '0',
+        accessory: '0',
+        ring: '0',
+      },
+      global: {
+        mount: '0',
+        soul: '0',
+        awakeningSeal: '0',
+        costume: '0',
+        accessory: '0',
+        ship: '0',
+        enchant: '0',
+      },
+    },
+  },
+  def: {
+    final: '0',
+    stats: {
+      total: {
+        initial: '0',
+        equipment: '0',
+        adventure: '0',
+        enchant: '0',
+        avian: '0',
+      },
+      base: {
+        pal: '0',
+        skill: '0',
+        tech: '0',
+        relic: '0',
+        mount: '0',
+        artifact: '0',
+        parking: '0',
+        accessory: '0',
+        ring: '0',
+      },
+      global: {
+        mount: '0',
+        soul: '0',
+        awakeningSeal: '0',
+        costume: '0',
+        accessory: '0',
+        ship: '0',
+        enchant: '0',
+      },
+    },
+  },
+  atkSpeed: {
+    final: '0',
+    stats: {
+      total: {
+        initial: '0',
+        equipment: '0',
+        accessory: '0',
+      },
+      base: {
+        pal: '0',
+        tech: '0',
+      },
+      global: {
+        class: '0',
+      },
+    },
+  },
+
+  critRate: {
+    final: '0',
+    stats: {
+      equipment: '0',
+      pal: '0',
+      relic: '0',
+      artifact: '0',
+    },
+  },
+  comboRate: {
+    final: '0',
+    stats: {
+      equipment: '0',
+      pal: '0',
+      relic: '0',
+      artifact: '0',
+    },
+  },
+  counterRate: {
+    final: '0',
+    stats: {
+      equipment: '0',
+      pal: '0',
+      relic: '0',
+      artifact: '0',
+    },
+  },
+
+  basicAtkMultiplier: {
+    final: '0',
+    stats: {
+      total: {
+        initial: '0',
+      },
+      base: {
+        handbook: '0',
+        mount: '0',
+        soul: '0',
+        awakeningSeal: '0',
+        accessory: '0',
+      },
+      global: {
+        mount: '0',
+        artifact: '0',
+        soul: '0',
+        enchant: '0',
+        ship: '0',
+      },
+    },
+  },
+  critMultiplier: {
+    final: '0',
+    stats: {
+      total: {
+        initial: '0',
+        pal: '0',
+      },
+      base: {
+        mount: '0',
+        soul: '0',
+        awakeningSeal: '0',
+        enchant: '0',
+        accessory: '0',
+        avian: '0',
+      },
+      global: {
+        enchant: '0',
+      },
+    },
+  },
+  comboMultiplier: {
+    final: '0',
+    stats: {
+      total: {
+        initial: '0',
+      },
+      base: {
+        class: '0',
+        pal: '0',
+        handbook: '0',
+        mount: '0',
+        soul: '0',
+        awakeningSeal: '0',
+        enchant: '0',
+        accessory: '0',
+        avian: '0',
+      },
+      global: {
+        statue: '0',
+        artifact: '0',
+        soul: '0',
+        enchant: '0',
+        accessory: '0',
+        ship: '0',
+        avian: '0',
+      },
+    },
+  },
+  counterMultiplier: {
+    final: '0',
+    stats: {
+      total: {
+        initial: '0',
+      },
+      base: {
+        class: '0',
+        pal: '0',
+        handbook: '0',
+        mount: '0',
+        soul: '0',
+        awakeningSeal: '0',
+        enchant: '0',
+        accessory: '0',
+        avian: '0',
+      },
+      global: {
+        statue: '0',
+        artifact: '0',
+        soul: '0',
+        enchant: '0',
+        accessory: '0',
+        ship: '0',
+        avian: '0',
+      },
+    },
+  },
+
+  skillMultiplier: {
+    final: '0',
+    stats: {
+      total: {
+        initial: '0',
+        tech: '0',
+        mount: '0',
+        soul: '0',
+        awakeningSeal: '0',
+        accessory: '0',
+        avian: '0',
+      },
+      base: {
+        mount: '0',
+      },
+      global: {
+        enchant: '0',
+      },
+    },
+  },
+  skillCritRate: {
+    final: '0',
+    stats: {
+      equipment: '0',
+      class: '0',
+      pal: '0',
+      relic: '0',
+    },
+  },
+  skillCritMultiplier: {
+    final: '0',
+    stats: {
+      initial: '0',
+      soul: '0',
+      enchant: '0',
+      accessory: '0',
+    },
+  },
+
+  palMultiplier: {
+    final: '0',
+    stats: {
+      total: {
+        initial: '0',
+        pal: '0',
+        tech: '0',
+        mount: '0',
+        soul: '0',
+        awakeningSeal: '0',
+        enchant: '0',
+        accessory: '0',
+        avian: '0',
+      },
+      base: {
+        mount: '0',
+      },
+      global: {
+        enchant: '0',
+      },
+    },
+  },
+  palCritRate: '0',
+  palComboRate: '0',
+  palCritMultiplier: '0',
+  palComboMultiplier: '0',
+}
+
 const DEFAULT_HERO_STATS = {
   // <!-- base stats -->
   hp: '0',
@@ -74,12 +383,12 @@ const DEFAULT_HERO_STATS = {
 
 const LOCAL_STORAGE_KEY = 'heroStats'
 
-const _heroStats = reactive<typeof DEFAULT_HERO_STATS>({ ...DEFAULT_HERO_STATS })
+const _heroStats = reactive<typeof DEFAULT_ADVANCED_HERO_STATS>({ ...DEFAULT_ADVANCED_HERO_STATS })
 
 export function useHeroStats() {
   const heroStats = computed({
     get: () => _heroStats,
-    set: (stats: typeof DEFAULT_HERO_STATS) => {
+    set: (stats: typeof DEFAULT_ADVANCED_HERO_STATS) => {
       Object.assign(_heroStats, stats)
     },
   })
@@ -100,7 +409,7 @@ export function useHeroStats() {
     const heroStatsFromLocalStorage = localStorage.getItem(LOCAL_STORAGE_KEY)
 
     if (heroStatsFromLocalStorage) {
-      heroStats.value = JSON.parse(heroStatsFromLocalStorage) as typeof DEFAULT_HERO_STATS
+      heroStats.value = JSON.parse(heroStatsFromLocalStorage) as typeof DEFAULT_ADVANCED_HERO_STATS
     }
   })
 
