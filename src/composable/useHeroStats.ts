@@ -1,5 +1,21 @@
 import { ElNotification } from 'element-plus'
-import { computed, onMounted, reactive } from 'vue'
+import { onMounted, reactive, watch } from 'vue'
+import { calcFinalAtk } from '@/utils/stats/baseStats/atk'
+import { calcFinalAtkSpeed } from '@/utils/stats/baseStats/atkSpeed'
+import { calcFinalDef } from '@/utils/stats/baseStats/def'
+import { calcFinalHP } from '@/utils/stats/baseStats/hp'
+import { calcFinalBasicAtkMultiplier } from '@/utils/stats/multipliers/basicAtkMultiplier'
+import { calcFinalComboMultiplier } from '@/utils/stats/multipliers/comboMultiplier'
+import { calcFinalCounterMultiplier } from '@/utils/stats/multipliers/counterMultiplier'
+import { calcFinalCritMultiplier } from '@/utils/stats/multipliers/critMultiplier'
+import { calcFinalPalMultiplier } from '@/utils/stats/multipliers/palMultiplier'
+import { calcFinalSkillCritMultiplier } from '@/utils/stats/multipliers/skillCritMultiplier'
+import { calcFinalSkillMultiplier } from '@/utils/stats/multipliers/skillMultiplier'
+import { calcFinalComboRate } from '@/utils/stats/rates/comboRate'
+import { calcFinalCounterRate } from '@/utils/stats/rates/counterRate'
+import { calcFinalCritRate } from '@/utils/stats/rates/critRate'
+import { calcFinalSkillCritRate } from '@/utils/stats/rates/skillCritRate'
+import { toAbbreviatedNumber } from '@/utils/toAbbreviatedNumber'
 
 const DEFAULT_ADVANCED_HERO_STATS = {
   hp: {
@@ -310,92 +326,52 @@ const DEFAULT_ADVANCED_HERO_STATS = {
   palComboMultiplier: '0',
 }
 
-const DEFAULT_HERO_STATS = {
-  // <!-- base stats -->
-  hp: '0',
-  attack: '0',
-  defense: '0',
-  attackSpeed: '0',
-  // <!-- base stats -->
+const LOCAL_STORAGE_KEY = 'advancedHeroStats'
 
-  // <!-- attack -->
-  critRate: '0',
-  comboRate: '0',
-  counterRate: '0',
-
-  baseAttackMultiplier: '0',
-  critMultiplier: '0',
-  comboMultiplier: '0',
-  counterMultiplier: '0',
-
-  baseAttackResistance: '0',
-  critResistance: '0',
-  comboResistance: '0',
-  counterResistance: '0',
-  damageResistance: '0',
-
-  comboIgnoreRate: '0',
-  counterIgnoreRate: '0',
-  // <!-- attack -->
-
-  // <!-- skill -->
-  skillCritRate: '0',
-
-  skillMultiplier: '0',
-  skillCritMultiplier: '0',
-
-  skillResistance: '0',
-  // <!-- skill -->
-
-  // <!-- control -->
-  stunRate: '0',
-  evasionRate: '0',
-  regenRate: '0',
-  launchRate: '0',
-
-  stunIgnoreRate: '0',
-  evasionIgnoreRate: '0',
-  launchIgnoreRate: '0',
-  // <!-- control -->
-
-  // <!-- boss -->
-  bossMultiplier: '0',
-
-  bossResistance: '0',
-  // <!-- boss -->
-
-  // <!-- pal -->
-  palCritRate: '0',
-  palComboRate: '0',
-
-  palMultiplier: '0',
-  palCritMultiplier: '0',
-  palComboMultiplier: '0',
-
-  palResistance: '0',
-  // <!-- pal -->
-
-  // <!-- heal -->
-  healRate: '0',
-  healMultiplier: '0',
-  // <!-- heal -->
-}
-
-const LOCAL_STORAGE_KEY = 'heroStats'
-
-const _heroStats = reactive<typeof DEFAULT_ADVANCED_HERO_STATS>({ ...DEFAULT_ADVANCED_HERO_STATS })
+const heroStats = reactive<typeof DEFAULT_ADVANCED_HERO_STATS>({ ...DEFAULT_ADVANCED_HERO_STATS })
 
 export function useHeroStats() {
-  const heroStats = computed({
-    get: () => _heroStats,
-    set: (stats: typeof DEFAULT_ADVANCED_HERO_STATS) => {
-      Object.assign(_heroStats, stats)
+  watch(
+    [
+      () => heroStats.hp.stats,
+      () => heroStats.atk.stats,
+      () => heroStats.def.stats,
+      () => heroStats.atkSpeed.stats,
+      () => heroStats.critRate.stats,
+      () => heroStats.comboRate.stats,
+      () => heroStats.counterRate.stats,
+      () => heroStats.basicAtkMultiplier.stats,
+      () => heroStats.critMultiplier.stats,
+      () => heroStats.comboMultiplier.stats,
+      () => heroStats.counterMultiplier.stats,
+      () => heroStats.skillMultiplier.stats,
+      () => heroStats.skillCritRate.stats,
+      () => heroStats.skillCritMultiplier.stats,
+      () => heroStats.palMultiplier.stats,
+    ],
+    ([hp, atk, def, atkSpeed, critRate, comboRate, counterRate, basicAtkMultiplier, critMultiplier, comboMultiplier, counterMultiplier, skillMultiplier, skillCritRate, skillCritMultiplier, palMultiplier]) => {
+      heroStats.hp.final = toAbbreviatedNumber(calcFinalHP(hp))
+      heroStats.atk.final = toAbbreviatedNumber(calcFinalAtk(atk))
+      heroStats.def.final = toAbbreviatedNumber(calcFinalDef(def))
+      heroStats.atkSpeed.final = toAbbreviatedNumber(calcFinalAtkSpeed(atkSpeed))
+      heroStats.critRate.final = toAbbreviatedNumber(calcFinalCritRate(critRate))
+      heroStats.comboRate.final = toAbbreviatedNumber(calcFinalComboRate(comboRate))
+      heroStats.counterRate.final = toAbbreviatedNumber(calcFinalCounterRate(counterRate))
+      heroStats.basicAtkMultiplier.final = toAbbreviatedNumber(calcFinalBasicAtkMultiplier(basicAtkMultiplier))
+      heroStats.critMultiplier.final = toAbbreviatedNumber(calcFinalCritMultiplier(critMultiplier))
+      heroStats.comboMultiplier.final = toAbbreviatedNumber(calcFinalComboMultiplier(comboMultiplier))
+      heroStats.counterMultiplier.final = toAbbreviatedNumber(calcFinalCounterMultiplier(counterMultiplier))
+      heroStats.skillMultiplier.final = toAbbreviatedNumber(calcFinalSkillMultiplier(skillMultiplier))
+      heroStats.skillCritRate.final = toAbbreviatedNumber(calcFinalSkillCritRate(skillCritRate))
+      heroStats.skillCritMultiplier.final = toAbbreviatedNumber(calcFinalSkillCritMultiplier(skillCritMultiplier))
+      heroStats.palMultiplier.final = toAbbreviatedNumber(calcFinalPalMultiplier(palMultiplier))
     },
-  })
+    { deep: true }
+  )
 
   const saveStats = () => {
     try {
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(_heroStats))
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(heroStats))
 
       ElNotification({ title: `Статы ${LOCAL_STORAGE_KEY} успешно сохранены в браузере!`, type: 'success' })
     } catch (e: unknown) {
@@ -409,7 +385,7 @@ export function useHeroStats() {
     const heroStatsFromLocalStorage = localStorage.getItem(LOCAL_STORAGE_KEY)
 
     if (heroStatsFromLocalStorage) {
-      heroStats.value = JSON.parse(heroStatsFromLocalStorage) as typeof DEFAULT_ADVANCED_HERO_STATS
+      Object.assign(heroStats, JSON.parse(heroStatsFromLocalStorage) as typeof DEFAULT_ADVANCED_HERO_STATS)
     }
   })
 

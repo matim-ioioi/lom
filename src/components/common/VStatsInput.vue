@@ -1,9 +1,9 @@
 <template>
   <client-only>
     <div>
-      <el-text v-if="screen.isXs" type="info">{{ props.placeholder }}</el-text>
+      <el-text v-if="screen.isXs && props.placeholder" type="info">{{ props.placeholder }}</el-text>
       <el-input v-model="model" v-maska="props.type === 'stat' ? statMaska : levelMaska" :type="'text'" :placeholder="props.placeholder" :disabled="props.disabled ?? ''">
-        <template v-if="!screen.isXs" #prepend>{{ props.placeholder }}</template>
+        <template v-if="!screen.isXs && props.placeholder" #prepend>{{ props.placeholder }}</template>
         <template #append><v-copy :text="model" /></template>
         <template v-if="hint" #suffix>
           <el-tooltip placement="top">
@@ -28,7 +28,7 @@ const screen = useScreen()
 
 const props = withDefaults(
   defineProps<{
-    placeholder: string
+    placeholder?: string
     hint?: string
     disabled?: boolean
     type?: 'level' | 'stat'
